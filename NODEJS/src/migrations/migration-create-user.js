@@ -6,9 +6,12 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
       email: {
+        type: Sequelize.STRING
+      },
+      password: {
         type: Sequelize.STRING
       },
       firstName: {
@@ -23,11 +26,12 @@ module.exports = {
       gender: {
         type: Sequelize.BOOLEAN
       },
-      roleid: {
+      typeRole: {
         type: Sequelize.STRING
       },
-
-
+      keyRole: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
