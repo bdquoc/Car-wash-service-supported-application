@@ -1,4 +1,19 @@
 {
+    "homeheader": {
+        "service": "Dịch vụ",
+        "product": "Sản phẩm",
+        "facility": "Hệ thống",
+        "support": "Hỗ trợ"
+    },
+    "banner": {
+        "title1": "DỊCH VỤ BẢO DƯỠNG XE HƠI",
+        "title2": "BẢO DƯỠNG CHĂM SÓC XE MỘT CÁCH TOÀN DIỆN",
+        "detail": "Detailing - Chăm sóc tại nhà",
+        "product": "Sản phẩm và phụ kiện",
+        "brake": "Bảo dưỡng phanh, thắng đĩa",
+        "tires": "Bảo dưỡng, thay lốp",
+        "engine": "Bảo dưỡng khoang động cơ"
+    },
     "common": {
         "add": "Thêm",
         "edit": "Sửa",

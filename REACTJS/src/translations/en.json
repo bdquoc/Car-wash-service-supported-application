@@ -1,4 +1,19 @@
 {
+    "homeheader": {
+        "service": "Car services",
+        "product": "Products",
+        "facility": "Facilities",
+        "support": "Support"
+    },
+    "banner": {
+        "title1": "CAR MAINTENANCE SERVICE",
+        "title2": "Comprehensive Vehicle Care and Maintenance",
+        "detail": "Detailing",
+        "product": "Products and components",
+        "brake": "Brake maintenance, disc brakes",
+        "tires": "Maintenance, tire change",
+        "engine": "Engine compartment maintenance"
+    },
     "common": {
         "add": "Add",
         "edit": "Edit",
