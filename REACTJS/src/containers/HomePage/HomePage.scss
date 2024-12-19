@@ -1,0 +1,109 @@
+//reset slick slider
+.slick-prev{
+    // position: relative !important;
+    left: -7 !important;
+    z-index: 100 !important;
+    height: 48px !important;
+    width: 44px !important;
+    background: #fff !important;
+    border: 2px solid #d7d7d7 !important;
+
+    &:hover{
+        background: #eceaea !important;
+    }
+}
+
+.slick-prev::before, .slick-next:before{
+    font-family: FontAwesome !important;
+    color: red !important;
+}
+
+.slick-next{
+    border: 1px solid red !important;
+    right: -7 !important;
+    z-index: 100 !important;
+    height: 48px !important;
+    width: 44px !important;
+    background: #fff !important;
+    border: 2px solid #d7d7d7 !important;
+
+    &:hover{
+        background: #eceaea !important;
+    }
+}
+
+
+.section-share{
+    &.section-specialty{
+        background: #f5f5f5;
+    }
+
+    &.section-service1{
+        background: #f5f5f5;
+    }
+    
+
+    .section-body{
+        .specialty-customize{
+            .bg-image{
+                height: 186px;
+                width: 354px;
+                background-position: center center;
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-color: #eee;
+
+                &.section-specialty{
+                    background: url('../../assets/Specialty/rua-xe-o-to.jpg');
+                }
+
+                &.section-service1{
+                    background: url('../../assets/service1/lop.jpg');
+                }
+
+                &.section-service2{
+                    background: url('../../assets/service2/dong-co-o-to.jpg');
+                }
+            }
+        }
+    }
+}
+
+.section-share{
+    height: 330px;
+    
+    .section-container{
+        margin: 0 100px;
+        display: flex;
+        flex-direction: column;
+
+        .section-header{
+            height: 60px;
+            margin-bottom: 30px;
+            padding-top: 30px;
+
+            .title-section{
+                font-size: 22px;
+                font-weight: 600;
+            }
+
+            .btn-section{
+                float: right;
+                padding: 10px 15px;
+                border: none;
+                outline: none;
+                display: block;
+                background: #ebebeb;
+                color: black;
+                text-transform: uppercase;
+
+                &:hover{
+                    color: black;
+                    background: #fcb900;
+                }
+            }
+        }
+
+        
+    }
+}
