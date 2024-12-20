@@ -10,33 +10,33 @@ class Service1 extends Component {
             <div className="section-share section-service1">
                 <div className="section-container">
                     <div className="section-header">
-                        <span className="title-section">Dịch vụ bảo dưỡng</span>
+                        <span className="title-section">Cơ sở vật chất</span>
                         <button className="btn-section">xem thêm</button>
                     </div>
 
                     <div className="section-body">
                         <Slider {...this.props.settings}>
-                            <div className="specialty-customize">
+                            <div className="section-customize">
                                 <div className="bg-image section-service1" />
                                 <div>Bảo dưỡng ô tô 1</div>
                             </div>
-                            <div className="specialty-customize">
+                            <div className="section-customize">
                                 <div className="bg-image section-service1" />    
                                 <div>Bảo dưỡng ô tô 2</div>
                             </div>
-                            <div className="specialty-customize">
+                            <div className="section-customize">
                                 <div className="bg-image section-service1" />
                                 <div>Bảo dưỡng ô tô 3</div>
                             </div>
-                            <div className="specialty-customize">
+                            <div className="section-customize">
                                 <div className="bg-image section-service1" />
                                 <div>Bảo dưỡng ô tô 4</div>
                             </div>
-                            <div className="specialty-customize">
+                            <div className="section-customize">
                                 <div className="bg-image section-service1" />
                                 <div>Bảo dưỡng ô tô 5</div>
                             </div>
-                            <div className="specialty-customize">
+                            <div className="section-customize">
                                 <div className="bg-image section-service1" />
                                 <div>Bảo dưỡng ô tô 6</div>
                             </div>
