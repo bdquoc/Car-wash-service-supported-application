@@ -8,6 +8,8 @@ import './HomePage.scss'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Tips from './Section/Tips';
+import About from './Section/About';
+import HomeFooter from './HomeFooter';
 
 class HomePage extends Component {
     render() {
@@ -25,6 +27,8 @@ class HomePage extends Component {
                 <Service1 settings={settings}/>
                 <OutstandingEmployee settings={settings} />
                 <Tips settings={settings} />
+                <About />
+                <HomeFooter />
             </div>
         );
     }
