@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import './UserManage.scss';
-import { getAllUsers, createNewUserService, deleteUserSerice, editUserService } from '../../services/userService';
+import { getAllUsers, createNewUserService, deleteUserService, editUserService } from '../../services/userService';
 import ModalUser from './ModalUser';
 import ModalEditUser from './ModalEditUser';
 import { emitter } from '../../utils/emitter';
@@ -70,7 +70,7 @@ class UserManage extends Component {
     handleDeleteUser = async (user) => {
         console.log('Delete', user)
         try {
-            let res = await deleteUserSerice(user.id);
+            let res = await deleteUserService(user.id);
             console.log(res)
             if (res && res.errCode === 0) {
                 await this.getAllUsersFromReact();
