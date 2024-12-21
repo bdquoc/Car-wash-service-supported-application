@@ -22,16 +22,26 @@
             "manage-admin": "Manage admin",
             "crud": "CRUD user",
             "crud-redux": "CRUD Redux",
-
             "facility": "Facilities",
-            "manage-facility" : "Manage cơ sở",
-
+            "manage-facility": "Manage cơ sở",
             "specialty": "Services",
-            "manage-specialty" : "Manage Service",
-
+            "manage-specialty": "Manage Service",
             "tips": "Tips",
-            "manage-tips" : "Manage tips"
-
+            "manage-tips": "Manage tips"
         }
+    },
+    "manage-user": {
+        "add": "Add new user",
+        "email": "Email",
+        "password": "Password",
+        "first-name": "First name",
+        "last-name": "Last name",
+        "phone-number": "Phone number",
+        "address": "Address",
+        "gender": "Gender",
+        "position": "Position",
+        "role": "Role",
+        "image": "Avatar",
+        "save": "Save user"
     }
 }

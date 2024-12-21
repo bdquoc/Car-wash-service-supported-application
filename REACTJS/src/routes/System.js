@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { Redirect, Route, Switch } from 'react-router-dom';
 import UserManage from '../containers/System/UserManage';
-import UserRedux from '../containers/System/UserRedux';
+import UserRedux from '../containers/System/Admin/UserRedux';
 import Header from '../containers/Header/Header';
 
 class System extends Component {
     render() {
-        
+
         const { systemMenuPath, isLoggedIn } = this.props;
         return (
             <React.Fragment>
-                {this.props.isLoggedIn && <Header />}   
+                {this.props.isLoggedIn && <Header />}
                 <div className="system-container">
                     <div className="system-list">
                         <Switch>
@@ -23,7 +23,7 @@ class System extends Component {
                 </div>
             </React.Fragment>
         );
-        
+
     }
 }
 
