@@ -108,8 +108,8 @@ class UserRedux extends Component {
             address: this.state.address,
             phoneNumber: this.state.phoneNumber,
             gender: this.state.gender,
-            position: this.state.position,
-            role: this.state.role
+            roleId: this.state.role,
+            positionId: this.state.position
         })
     }
 
@@ -246,7 +246,7 @@ class UserRedux extends Component {
                                     <div className="preview-img-container">
                                         <input id="previewImg" type="file" hidden onChange={(event) => this.handleOnChangeImage(event)} />
                                         <label className="label-upload" htmlFor="previewImg">Tải ảnh<i className="fas fa-upload"></i></label>
-                                        <div className="preview-img"
+                                        <div className="preview-image"
                                             style={{ backgroundImage: `url(${this.state.previewImgURL})` }}
                                             onClick={() => this.openPreviewImage()}>
 
