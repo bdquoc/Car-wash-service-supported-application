@@ -44,5 +44,9 @@
         "image": "Avatar",
         "save": "Save user",
         "edit": "Edit user"
+    },
+    "homepage": {
+        "outstanding-employee": "Last week's featured employee",
+        "more-infor": "More Infor"
     }
 }

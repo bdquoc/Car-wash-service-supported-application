@@ -15,7 +15,7 @@ class HomePage extends Component {
     render() {
         let settings = {
             dots: true,
-            infinite: true,
+            infinite: false,
             speed: 500,
             slidesToShow: 4,
             slidesToScroll: 1,
@@ -23,8 +23,8 @@ class HomePage extends Component {
         return (
             <div>
                 <HomeHeader />
-                <Specialty settings={settings}/>
-                <Service1 settings={settings}/>
+                <Specialty settings={settings} />
+                <Service1 settings={settings} />
                 <OutstandingEmployee settings={settings} />
                 <Tips settings={settings} />
                 <About />

@@ -28,14 +28,14 @@ class OutstandingEmployee extends Component {
     render() {
         let arrEmployees = this.state.arrEmployees;
         let { language } = this.props;
-        arrEmployees = arrEmployees.concat(arrEmployees).concat(arrEmployees);
+        // arrEmployees = arrEmployees.concat(arrEmployees).concat(arrEmployees);
 
         return (
             <div className="section-share section-outstanding-employee">
                 <div className="section-container">
                     <div className="section-header">
-                        <span className="title-section">Nhân viên nổi bật</span>
-                        <button className="btn-section">xem thêm</button>
+                        <span className="title-section"><FormattedMessage id="homepage.outstanding-employee" /></span>
+                        <button className="btn-section"><FormattedMessage id="homepage.more-infor" /></button>
                     </div>
                     <div className="section-body">
                         <Slider {...this.props.settings}>
