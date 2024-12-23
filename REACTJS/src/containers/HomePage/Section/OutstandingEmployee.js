@@ -22,7 +22,7 @@ class OutstandingEmployee extends Component {
     }
 
     componentDidMount() {
-        this.props.loadTopDoctor();
+        this.props.loadTopEmployees();
     }
 
     render() {
@@ -84,7 +84,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        loadTopDoctor: () => dispatch(actions.fetchTopEmployees())
+        loadTopEmployees: () => dispatch(actions.fetchTopEmployees())
     };
 };
 

@@ -216,8 +216,7 @@ export const fetchTopEmployees = () => {
 }
 
 export const fetchTopEmployeesSuccess = (data) => ({
-    type: actionTypes.FETCH_TOP_EMPLOYEES_SUCCESS,
-    dataEmployees: data
+    type: actionTypes.FETCH_TOP_EMPLOYEES_SUCCESS
 })
 
 export const fetchTopEmployeesFailed = () => ({
