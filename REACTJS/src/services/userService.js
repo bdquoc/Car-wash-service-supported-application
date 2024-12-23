@@ -30,4 +30,8 @@ const editUserService = (inputData) => {
 const getAllCodeService = (inputType) => {
     return axios.get(`/api/allcode?type=${inputType}`)
 }
-export { handleLoginApi, getAllUsers, createNewUserService, deleteUserService, editUserService, getAllCodeService }
+
+const getTopEmployeeHomeService = (limit) => {
+    return axios.get(`/api/top-employee-home?limit=${limit}`)
+}
+export { handleLoginApi, getAllUsers, createNewUserService, deleteUserService, editUserService, getAllCodeService, getTopEmployeeHomeService }
