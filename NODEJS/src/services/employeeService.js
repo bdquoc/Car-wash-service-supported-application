@@ -9,7 +9,7 @@ let getTopEmployeeHome = (limitInput) => {
                 where: { roleId: 'R2' },
                 order: [['createdAt', 'DESC']],
                 attributes: {
-                    exclude: ['password']
+                    exclude: ['password' ]
                 },
                 include: [
                     { model: db.Allcode, as: 'positionData', attributes: ['valueEn', 'valueVi'] },

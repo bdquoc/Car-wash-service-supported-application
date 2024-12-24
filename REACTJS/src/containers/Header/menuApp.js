@@ -12,7 +12,7 @@ export const adminMenu = [
             },
 
             {
-                 name: 'menu.admin.manage-employee', link: '/system/user-employee'
+                 name: 'menu.admin.manage-employee', link: '/system/manage-employee'
                 // subMenus: [
                 //     { name: 'menu.system.system-administrator.user-manage', link: '/system/user-manage' },
                 //     { name: 'menu.system.system-administrator.user-redux', link: '/system/user-redux' },
