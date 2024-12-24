@@ -25,6 +25,8 @@ let initWebRoutes = (app) => {
     router.get('/api/top-employee-home', employeeController.getTopEmployeeHome);
     router.get('/api/get-all-employees', employeeController.getAllEmployees);
     router.post('/api/save-infor-employees', employeeController.postInfoEmployee);
+    router.get('/api/get-detail-employee-by-id', employeeController.getDetailEmployeeById);
+
 
 
     return app.use("/", router);
