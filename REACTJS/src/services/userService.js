@@ -42,9 +42,13 @@ const getAllEmployees = () => {
 const saveDetailEmployeeService = (inputData) => {
     return axios.post('/api/save-infor-employees', inputData);
 }
+
+const getDetailInforEmployee = (inputId) => {
+    return axios.get(`/api/get-detail-employee-by-id?id=${inputId}`)
+}
 export {
     handleLoginApi, getAllUsers, createNewUserService,
     deleteUserService, editUserService, getAllCodeService,
     getTopEmployeeHomeService, getAllEmployees,
-    saveDetailEmployeeService
+    saveDetailEmployeeService, getDetailInforEmployee
 }
