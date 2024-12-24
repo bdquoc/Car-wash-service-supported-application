@@ -1,7 +1,8 @@
 import actionTypes from "./actionTypes";
 import {
     getAllCodeService, createNewUserService, getAllUsers,
-    deleteUserService, editUserService, getTopEmployeeHomeService
+    deleteUserService, editUserService, getTopEmployeeHomeService,
+    getAllEmployees, saveDetailEmployeeService
 } from "../../services/userService";
 import { toast } from 'react-toastify';
 
@@ -222,3 +223,54 @@ export const fetchTopEmployeesSuccess = (data) => ({
 export const fetchTopEmployeesFailed = () => ({
     type: actionTypes.FETCH_TOP_EMPLOYEES_FAILED
 })
+
+export const fetchAllEmployees = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getAllEmployees();
+            if (res && res.errCode === 0) {
+                dispatch({
+                    type: actionTypes.FETCH_ALL_EMPLOYEES_SUCCESS,
+                    dataEp: res.data
+                });
+            } else {
+                dispatch({
+                    type: actionTypes.FETCH_ALL_EMPLOYEES_FAILED
+                });
+            }
+        } catch (e) {
+            console.log('fetchAllEmployees error', e);
+            dispatch({
+                type: actionTypes.FETCH_ALL_EMPLOYEES_FAILED
+            });
+
+        }
+    }
+}
+
+export const saveDetailEmployee = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await saveDetailEmployeeService(data);
+            if (res && res.errCode === 0) {
+                toast.success('Save detail employee succeeded');
+                dispatch({
+                    type: actionTypes.SAVE_DETAIL_EMPLOYEE_SUCCESS
+                });
+            } else {
+                console.log('saveDetailEmployee error', res);
+                toast.error('Save detail employee failed');
+                dispatch({
+                    type: actionTypes.SAVE_DETAIL_EMPLOYEE_FAILED
+                });
+            }
+        } catch (e) {
+            toast.error('Save detail employee failed');
+            console.log('saveDetailEmployee error', e);
+            dispatch({
+                type: actionTypes.SAVE_DETAIL_EMPLOYEE_FAILED
+            });
+
+        }
+    }
+}

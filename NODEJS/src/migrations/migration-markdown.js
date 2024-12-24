@@ -17,19 +17,19 @@ module.exports = {
                 type: Sequelize.TEXT('long')
             },
             description: {
-                allowNull: false,
+                allowNull: true,
                 type: Sequelize.TEXT('long')
             },
             employeeId: {
-                allowNull: false,
+                allowNull: true,
                 type: Sequelize.INTEGER
             },
             specialityId: {
-                allowNull: false,
+                allowNull: true,
                 type: Sequelize.INTEGER
             },
             facilityId: {
-                allowNull: false,
+                allowNull: true,
                 type: Sequelize.INTEGER
             },
             createdAt: {

@@ -34,4 +34,17 @@ const getAllCodeService = (inputType) => {
 const getTopEmployeeHomeService = (limit) => {
     return axios.get(`/api/top-employee-home?limit=${limit}`)
 }
-export { handleLoginApi, getAllUsers, createNewUserService, deleteUserService, editUserService, getAllCodeService, getTopEmployeeHomeService }
+
+const getAllEmployees = () => {
+    return axios.get(`/api/get-all-employees`)
+}
+
+const saveDetailEmployeeService = (inputData) => {
+    return axios.post('/api/save-infor-employees', inputData);
+}
+export {
+    handleLoginApi, getAllUsers, createNewUserService,
+    deleteUserService, editUserService, getAllCodeService,
+    getTopEmployeeHomeService, getAllEmployees,
+    saveDetailEmployeeService
+}
