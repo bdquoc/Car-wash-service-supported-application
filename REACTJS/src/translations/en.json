@@ -28,6 +28,10 @@
             "manage-specialty": "Manage Service",
             "tips": "Tips",
             "manage-tips": "Manage tips"
+        },
+        "employee": {
+            "manage-schedule": "Manage Employee's schedule"
+            
         }
     },
     "manage-user": {
