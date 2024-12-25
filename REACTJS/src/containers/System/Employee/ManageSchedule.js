@@ -8,7 +8,8 @@ import * as actions from '../../../store/actions';
 import DatePicker from '../../../components/Input/DatePicker';
 import moment from 'moment';
 import { toast } from 'react-toastify';
-import _, { result } from 'lodash';
+import _ from 'lodash';
+import { saveBulkScheduleEmployee } from '../../../services/userService';
 
 
 
@@ -88,7 +89,7 @@ class ManageSchedule extends Component {
         }
     }
 
-    handleSaveSchedule = () => {
+    handleSaveSchedule = async () => {
         let { rangeTime, selectedEmployee, currentDate } = this.state;
         let result = [];
 
@@ -102,7 +103,8 @@ class ManageSchedule extends Component {
             return;
         }
 
-        let formatedDate = moment(currentDate).format(dateFormat.SEND_TO_SERVER);
+        // let formatedDate = moment(currentDate).format(dateFormat.SEND_TO_SERVER);
+        let formatedDate = new Date(currentDate).getTime();
 
         if(rangeTime && rangeTime.length > 0) {
             let selectedTime = rangeTime.filter(item => item.isSelected === true);
@@ -111,7 +113,7 @@ class ManageSchedule extends Component {
                     let object = {};
                     object.employeeId = selectedEmployee.value;
                     object.date = formatedDate;
-                    object.time = schedule.keyMap;
+                    object.timeType = schedule.keyMap;
                     result.push(object);
                 })
             } else{
@@ -120,7 +122,13 @@ class ManageSchedule extends Component {
             }
         }
 
-        console.log('check result', result);
+        let res = await saveBulkScheduleEmployee({
+            arrSchedule: result,
+            employeeId: selectedEmployee.value,
+            formatedDate: formatedDate
+        })
+
+        console.log('res: ', res);
     }
     
     render() {
