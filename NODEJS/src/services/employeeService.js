@@ -52,18 +52,39 @@ let getAllEmployees = () => {
 let saveDetailInforEmployee = (inputData) => {
     return new Promise(async (resolve, reject) => {
         try {
-            if (!inputData.contentHTML || !inputData.id || !inputData.contentMarkdown) {
+            if (!inputData.contentHTML || !inputData.id || !inputData.contentMarkdown || !inputData.action) {
                 resolve({
                     errCode: 1,
                     errMessage: 'Missing required parameters'
                 })
             } else {
-                await db.Markdown.create({
-                    contentHTML: inputData.contentHTML,
-                    contentMarkdown: inputData.contentMarkdown,
-                    description: inputData.description,
-                    employeeId: inputData.employeeId,
-                }),
+                if (inputData.action === 'CREATE') {
+                    await db.Markdown.create({
+                        contentHTML: inputData.contentHTML,
+                        contentMarkdown: inputData.contentMarkdown,
+                        description: inputData.description,
+                        employeeId: inputData.id,
+                    })
+                } else if (inputData.action === 'EDIT') {
+                    let employeeMarkdown = await db.Markdown.findOne({
+                        where: { employeeId: inputData.id },
+                        raw: false,
+                    })
+
+                    if (employeeMarkdown) {
+                        employeeMarkdown.contentHTML = inputData.contentHTML;
+                        employeeMarkdown.contentMarkdown = inputData.contentMarkdown;
+                        employeeMarkdown.description = inputData.description;
+                        employeeMarkdown.updatedAt = new Date();
+                        await employeeMarkdown.save();
+                    }
+                }
+                // await db.Markdown.create({
+                //     contentHTML: inputData.contentHTML,
+                //     contentMarkdown: inputData.contentMarkdown,
+                //     description: inputData.description,
+                //     employeeId: inputData.employeeId,
+                // }),
                     resolve({
                         errCode: 0,
                         errMessage: 'Save detail infor employee success'
