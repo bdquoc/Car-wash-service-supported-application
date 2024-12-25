@@ -27,9 +27,3 @@ export const YesNoObj = {
     YES: 'Y',
     NO: 'N'
 }
-
-export const USER_ROLE = {
-    ADMIN: 'R!',
-    EMPLOYEE: 'R2',
-    CUSTOMER: 'R3'
-}

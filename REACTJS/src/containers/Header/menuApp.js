@@ -19,13 +19,8 @@ export const adminMenu = [
                 // ]
             },
 
-            // {
-            //     name: 'menu.admin.manage-admin', link: '/system/user-admin'
-            // },
-
-            { //quản lí lịch làm việc của nhân viên     
-                name: 'menu.employee.schedule', link: '/employee/manage-schedule'
-                
+            {
+                name: 'menu.admin.manage-admin', link: '/system/user-admin'
             },
 
             
@@ -61,22 +56,4 @@ export const adminMenu = [
 
         ]
     },
-];
-
-export const employeeMenu = [
-
-    { //quản lí lịch làm việc của nhân viên
-        name: 'menu.employee.manage-schedule', 
-        menus: [
-            {
-                name: 'menu.admin.crud', link: '/system/user-manage'
-            },
-
-            {
-                name: 'menu.employee.schedule', link: '/employee/manage-schedule'
-            }
-        ]
-    },
-
-    
 ];
