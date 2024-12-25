@@ -28,6 +28,10 @@
             "manage-specialty": "Quản lí dịch vụ",
             "tips": "Tips",
             "manage-tips": "Quản lí tips"
+        },
+        "employee": {
+            "manage-schedule": "Quản lí lịch làm việc"
+            
         }
     },
     "manage-user": {
