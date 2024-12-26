@@ -216,14 +216,6 @@ export const fetchTopEmployees = () => {
     }
 }
 
-export const fetchTopEmployeesSuccess = (data) => ({
-    type: actionTypes.FETCH_TOP_EMPLOYEES_SUCCESS
-})
-
-export const fetchTopEmployeesFailed = () => ({
-    type: actionTypes.FETCH_TOP_EMPLOYEES_FAILED
-})
-
 export const fetchAllEmployees = () => {
     return async (dispatch, getState) => {
         try {
@@ -298,3 +290,40 @@ export const fetchAllScheduleTime = () => {
         }
     }
 }
+
+export const getRequiredEmployeeInfor = () => {
+    return async (dispatch, getState) => {
+        try {
+            dispatch({ type: actionTypes.FETCH_REQUIRED_EMPLOYEE_INFOR_START })
+
+            let resPrice = await getAllCodeService("PRICE");
+            let resPayment = await getAllCodeService("PAYMENT");
+            let resProvince = await getAllCodeService("PROVINCE");
+
+            if (resPrice && resPrice.errCode === 0
+                && resPayment && resPayment.errCode === 0
+                && resProvince && resProvince.errCode === 0) {
+                let data = {
+                    resPrice: resPrice.data,
+                    resPayment: resPayment.data,
+                    resProvince: resProvince.data
+                }
+                dispatch(fetchRequiredEmployeeInforSuccess(data));
+            } else {
+                dispatch(fetchRequiredEmployeeInforFailed());
+            }
+        } catch (e) {
+            dispatch(fetchRequiredEmployeeInforFailed());
+            console.log('error', e)
+        }
+    }
+}
+
+export const fetchRequiredEmployeeInforSuccess = (allRequiredData) => ({
+    type: actionTypes.FETCH_TOP_EMPLOYEES_SUCCESS,
+    data: allRequiredData
+})
+
+export const fetchRequiredEmployeeInforFailed = () => ({
+    type: actionTypes.FETCH_TOP_EMPLOYEES_FAILED
+})

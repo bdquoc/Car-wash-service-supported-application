@@ -18,27 +18,40 @@ class ManageEmployee extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            //Markdown
             contentMarkdown: '',
             contentHTML: '',
             selectedEmployee: '',
             description: '',
             listEmployees: [],
             hasOldData: false,
+
+            //Employee-Infor
+            listPrice: [],
+            listPayment: [],
+            listProvince: [],
+            selectedPrice: '',
+            selectedPayment: '',
+            selectedProvince: '',
+            nameFacility: '',
+            addressFacility: '',
+            note: ''
         }
     }
 
     componentDidMount() {
         this.props.fetchAllEmployees();
+        this.props.getAllRequiredEmployeeInfor();
     }
 
-    buildDataInputSelect = (inputData) => {
+    buildDataInputSelect = (inputData, type) => {
         let result = [];
         let { language } = this.props;
         if (inputData && inputData.length > 0) {
             inputData.map((item, index) => {
                 let object = {};
-                let labelVi = `${item.lastName} ${item.firstName}`;
-                let labelEn = `${item.firstName} ${item.lastName}`;
+                let labelVi = type === 'USERS' ? `${item.lastName} ${item.firstName}` : '';
+                let labelEn = type === 'USERS' ? `${item.firstName} ${item.lastName}` : '';
                 object.label = language === LANGUAGES.VI ? labelVi : labelEn;
                 object.value = item.id;
                 result.push(object);
@@ -48,7 +61,7 @@ class ManageEmployee extends Component {
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.allEmployees !== this.props.allEmployees) {
-            let dataSelect = this.buildDataInputSelect(this.props.allEmployees);
+            let dataSelect = this.buildDataInputSelect(this.props.allEmployees, 'USERS');
             this.setState({
                 listEmployees: dataSelect
             })
@@ -57,6 +70,20 @@ class ManageEmployee extends Component {
             let dataSelect = this.buildDataInputSelect(this.props.allEmployees);
             this.setState({
                 listEmployees: dataSelect
+            })
+        }
+
+        if (prevProps.allRequiredEmployeeInfor !== this.props.allRequiredEmployeeInfor) {
+            let { resPayment, resPrice, resProvince } = this.props.allRequiredEmployeeInfor;
+            let dataSelectPrice = this.buildDataInputSelect(resPrice);
+            let dataSelectPayment = this.buildDataInputSelect(resPayment);
+            let dataSelectProvince = this.buildDataInputSelect(resProvince);
+
+            console.log('data new: ', dataSelectPayment, dataSelectPrice, dataSelectProvince)
+            this.setState({
+                listPrice: dataSelectPrice,
+                listPayment: dataSelectPayment,
+                listProvince: dataSelectProvince,
             })
         }
     }
@@ -126,31 +153,69 @@ class ManageEmployee extends Component {
 
 
     render() {
+
         let { hasOldData } = this.props;
+
         return (
             <div className='manage-employee-container'>
                 <div className='manage-employee-title'>
-                    Tạo thêm thông tin employee
+                    <FormattedMessage id="admin.manage-employee.title" />
                 </div>
 
                 <div className='more-info'>
                     <div className='content-left form-group'>
-                        <label>Chọn nhân viên</label>
+                        <label><FormattedMessage id="admin.manage-employee.select-employee" /></label>
                         <Select
                             value={this.state.selectedEmployee}
                             onChange={this.handleChangeSelect}
                             options={this.state.listEmployees}
+                            placeholder={'Chọn nhana viên'}
                         />
                     </div>
 
                     <div className='content-right form-group'>
-                        <label>Thông tin giới thiệu</label>
+                        <label><FormattedMessage id="admin.manage-employee.intro" /></label>
                         <textarea
                             className='form-control' rows="4"
                             onChange={(event) => this.handleOnChangeDesc(event)}
                             value={this.state.description}>
                             Thêm thông tin
                         </textarea>
+                    </div>
+                </div>
+                <div className="more-infor-extra row">
+                    <div className="col-4 form-group">
+                        <label>Chọn giá</label>
+                        <Select
+                            options={this.state.listPrice}
+                            placeholder={'Chọn giá'}
+                        />
+                    </div>
+                    <div className="col-4 form-group">
+                        <label>Chọn phương thức thanh toán</label>
+                        <Select
+                            options={this.state.listPayment}
+                            placeholder={'Chọn phương thức thanh toán'}
+                        />
+                    </div>
+                    <div className="col-4 form-group">
+                        <label>Chọn tỉnh thành</label>
+                        <Select
+                            options={this.state.listProvince}
+                            placeholder={'Chọn tỉnh thành'}
+                        />
+                    </div>
+                    <div className="col-4 form-group">
+                        <label>Tên cơ sở</label>
+                        <input className="form-control" />
+                    </div>
+                    <div className="col-4 form-group">
+                        <label>Địa chỉ cơ sở</label>
+                        <input className="form-control" />
+                    </div>
+                    <div className="col-4 form-group">
+                        <label>Note</label>
+                        <input className="form-control" />
                     </div>
                 </div>
 
@@ -167,7 +232,9 @@ class ManageEmployee extends Component {
                     onClick={() => this.handleSaveContentMarkdown()}
                     className={hasOldData === true ? 'save-content-employee' : 'create-content-employee'} >
                     {hasOldData === true ?
-                        <span>Lưu thông tin</span> : <span>Tạo thông tin</span>
+                        <span><FormattedMessage id="admin.manage-employee.save" /></span>
+                        :
+                        <span><FormattedMessage id="admin.manage-employee.add" /></span>
                     }
                 </button>
             </div>
@@ -182,13 +249,15 @@ class ManageEmployee extends Component {
 const mapStateToProps = state => {
     return {
         language: state.app.language,
-        allEmployees: state.admin.allEmployees
+        allEmployees: state.admin.allEmployees,
+        allRequiredEmployeeInfor: state.admin.allRequiredEmployeeInfor,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         fetchAllEmployees: () => dispatch(actions.fetchAllEmployees()),
+        getAllRequiredEmployeeInfor: () => dispatch(actions.getRequiredEmployeeInfor()),
         saveDetailEmployee: (data) => dispatch(actions.saveDetailEmployee(data))
     };
 };

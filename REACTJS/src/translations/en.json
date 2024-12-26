@@ -65,5 +65,14 @@
             "choose": "Choose ",
             "book-free": " and book (free)"
         }
+    },
+    "admin": {
+        "manage-employee": {
+            "title": "Create more information employee",
+            "select-employee": "Select employee",
+            "intro": "Introduction:",
+            "add": "Create infor",
+            "save": "Save infor"
+        }
     }
 }

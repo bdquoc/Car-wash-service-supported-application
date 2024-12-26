@@ -9,6 +9,7 @@ const initialState = {
     topEmployees: [],
     allEmployees: [],
     allScheduleTime: [],
+    allRequiredEmployeeInfor: [],
 }
 
 const adminReducer = (state = initialState, action) => {
@@ -81,7 +82,7 @@ const adminReducer = (state = initialState, action) => {
             return {
                 ...state
             }
-        
+
         case actionTypes.FETCH_ALLCODE_SCHEDULE_TIME_SUCCESS:
             state.allScheduleTime = action.dataTime;
             return {
@@ -89,6 +90,26 @@ const adminReducer = (state = initialState, action) => {
             }
         case actionTypes.FETCH_ALLCODE_SCHEDULE_TIME_FAILED:
             state.allScheduleTime = [];
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_ALLCODE_SCHEDULE_TIME_SUCCESS:
+            state.allScheduleTime = action.dataTime;
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_ALLCODE_SCHEDULE_TIME_FAILED:
+            state.allScheduleTime = [];
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_REQUIRED_EMPLOYEE_INFOR_SUCCESS:
+            state.allRequiredEmployeeInfor = action.data;
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_REQUIRED_EMPLOYEE_INFOR_FAILED:
+            state.allRequiredEmployeeInfor = [];
             return {
                 ...state
             }
