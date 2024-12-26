@@ -2,7 +2,7 @@ import db from '../models/index';
 require('dotenv').config();
 import _ from 'lodash';
 
-const MAX_NUMBER_SCHEDULE=process.env.MAX_NUMBER_SCHEDULE;
+const MAX_NUMBER_SCHEDULE = process.env.MAX_NUMBER_SCHEDULE;
 
 let getTopEmployeeHome = (limitInput) => {
     return new Promise(async (resolve, reject) => {
@@ -63,11 +63,11 @@ let saveDetailInforEmployee = (inputData) => {
                 })
             } else {
                 if (inputData.action === 'CREATE') {
-                    await db.Markdown.create({
+                    await db.Markdowns.create({
                         contentHTML: inputData.contentHTML,
                         contentMarkdown: inputData.contentMarkdown,
                         description: inputData.description,
-                        employeeId: inputData.id,
+                        employeeId: inputData.employeeId,
                     })
                 } else if (inputData.action === 'EDIT') {
                     let employeeMarkdown = await db.Markdown.findOne({
@@ -89,10 +89,10 @@ let saveDetailInforEmployee = (inputData) => {
                 //     description: inputData.description,
                 //     employeeId: inputData.employeeId,
                 // }),
-                    resolve({
-                        errCode: 0,
-                        errMessage: 'Save detail infor employee success'
-                    })
+                resolve({
+                    errCode: 0,
+                    errMessage: 'Save detail infor employee success'
+                })
             }
         } catch (e) {
             reject(e);
@@ -154,8 +154,8 @@ let bulkCreateSchedule = (data) => {
                 })
             } else {
                 let schedule = data.arrSchedule;
-                if(schedule && schedule.length > 0) {
-                    schedule.map (item => {
+                if (schedule && schedule.length > 0) {
+                    schedule.map(item => {
                         item.maxNumber = MAX_NUMBER_SCHEDULE;
                         return item;
                     })
@@ -174,9 +174,9 @@ let bulkCreateSchedule = (data) => {
                     });
                 }
 
-                let toCreate = _.differenceWith(schedule, existing, (a, b) =>{
+                let toCreate = _.differenceWith(schedule, existing, (a, b) => {
                     return a.timeType === b.timeType && a.date === b.date;
-                } );
+                });
 
                 if (toCreate && toCreate.length > 0) {
                     await db.Schedule.bulkCreate(toCreate);
