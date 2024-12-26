@@ -46,7 +46,7 @@ class DetailEmployee extends Component {
                     isShowBanner={false}
                 />
                 <div className="employee-detail-container">
-                    <div className="infor-employee">
+                    <div className="intro-employee">
                         <div
                             className="content-left"
                             style={{ backgroundImage: `url(${detailEmployee && detailEmployee.image ? detailEmployee.image : ''})` }}
