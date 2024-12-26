@@ -63,7 +63,7 @@ let saveDetailInforEmployee = (inputData) => {
                 })
             } else {
                 if (inputData.action === 'CREATE') {
-                    await db.Markdowns.create({
+                    await db.Markdown.create({
                         contentHTML: inputData.contentHTML,
                         contentMarkdown: inputData.contentMarkdown,
                         description: inputData.description,

@@ -9,7 +9,7 @@ import 'react-markdown-editor-lite/lib/index.css';
 import './ManageEmployee.scss';
 import Select from 'react-select';
 import { CRUD_ACTIONS, LANGUAGES } from '../../../utils';
-import { getDetailInforEmployee } from '../../../services/userService';
+import { getDetailInforEmployee, saveDetailEmployee } from '../../../services/userService';
 
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
@@ -93,15 +93,15 @@ class ManageEmployee extends Component {
             contentMarkdown,
             description,
             id: selectedEmployee.value,
-            actions: hasOldData ? CRUD_ACTIONS.EDIT : CRUD_ACTIONS.CREATE
+            action: hasOldData ? CRUD_ACTIONS.EDIT : CRUD_ACTIONS.CREATE
         });
     }
 
-    handleChangeSelect =async (selectedEmployee) => {
+    handleChangeSelect = async (selectedEmployee) => {
         this.setState({ selectedEmployee });
 
-        let res =  await getDetailInforEmployee(selectedEmployee.value);
-        if( res && res.errCode ===0 && res.data && res.data.Markdown){
+        let res = await getDetailInforEmployee(selectedEmployee.value);
+        if (res && res.errCode === 0 && res.data && res.data.Markdown) {
             let markdown = res.data.Markdown;
             this.setState({
                 contentHTML: markdown.contentHTML,
@@ -126,7 +126,7 @@ class ManageEmployee extends Component {
 
 
     render() {
-        let { hasOldData} = this.props;
+        let { hasOldData } = this.props;
         return (
             <div className='manage-employee-container'>
                 <div className='manage-employee-title'>
@@ -165,8 +165,8 @@ class ManageEmployee extends Component {
 
                 <button
                     onClick={() => this.handleSaveContentMarkdown()}
-                    className= {hasOldData === true ? 'save-content-employee' : 'create-content-employee' } >
-                    {hasOldData === true ? 
+                    className={hasOldData === true ? 'save-content-employee' : 'create-content-employee'} >
+                    {hasOldData === true ?
                         <span>Lưu thông tin</span> : <span>Tạo thông tin</span>
                     }
                 </button>
