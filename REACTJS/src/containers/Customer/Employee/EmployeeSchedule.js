@@ -12,6 +12,7 @@ class EmployeeSchedule extends Component {
         super(props);
         this.state = {
             allDays: [],
+            allAvailableTime: []
         }
     }
 
@@ -24,12 +25,17 @@ class EmployeeSchedule extends Component {
 
     }
 
+    capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
     setArrDays = (language) => {
         let allDays = []
         for (let i = 0; i < 7; i++) {
             let object = {};
             if (language === LANGUAGES.VI) {
-                object.label = moment(new Date()).add(i, 'days').format('dddd - DD/MM');
+                let labelVi = moment(new Date()).add(i, 'days').format('dddd - DD/MM');
+                object.label = this.capitalizeFirstLetter(labelVi)
             } else {
                 object.label = moment(new Date()).add(i, 'days').locale('en').format('ddd - DD/MM');
             }
@@ -48,17 +54,26 @@ class EmployeeSchedule extends Component {
     }
 
     handleOnChangeSelect = async (event) => {
-        if (this.props.employeeIdFromParent !== this.props.employeeIdFromParent !== -1) {
+        console.log('check id', this.props.employeeIdFromParent)
+        console.log('check date', event.target.value)
+        if (this.props.employeeIdFromParent && this.props.employeeIdFromParent !== -1) {
             let employeeId = this.props.employeeIdFromParent;
             let date = event.target.value;
             let res = await getScheduleEmployeeByDate(employeeId, date);
+
+            if (res && res.errCode === 0) {
+                this.setState({
+                    allAvailableTime: res.data ? res.data : []
+                })
+            }
             console.log('check res schedule from react: ', res)
         }
     }
 
     render() {
 
-        let { allDays } = this.state;
+        let { allDays, allAvailableTime } = this.state;
+        let { language } = this.props;
 
         return (
 
@@ -83,7 +98,23 @@ class EmployeeSchedule extends Component {
 
                 </div>
                 <div className="all-available-time">
+                    <div className="text-calendar">
+                        <i class="fas fa-calendar-alt"><span>Lịch bảo dưỡng</span></i>
+                    </div>
+                    <div className="time-content">
+                        {allAvailableTime && allAvailableTime.length > 0 ?
+                            allAvailableTime.map((item, index) => {
+                                let timeDisplay = language === LANGUAGES.VI ?
+                                    item.timeTypeData.valueVi : item.timeTypeData.valueEn;
+                                return (
+                                    <button key={index}>{timeDisplay}</button>
+                                )
+                            })
 
+                            :
+                            <div>Không có lịch hẹn trong thời gian này, vui lòng chọn thời gian khác</div>
+                        }
+                    </div>
                 </div>
             </div>
         );

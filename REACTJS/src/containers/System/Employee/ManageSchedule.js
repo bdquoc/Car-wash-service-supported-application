@@ -38,8 +38,8 @@ class ManageSchedule extends Component {
         }
         if (prevProps.allScheduleTime !== this.props.allScheduleTime) {
             let data = this.props.allScheduleTime;
-            if(data && data.length > 0) {
-                data = data.map(item => ({...item, isSelected: false}));
+            if (data && data.length > 0) {
+                data = data.map(item => ({ ...item, isSelected: false }));
             }
             this.setState({
                 rangeTime: data
@@ -59,10 +59,10 @@ class ManageSchedule extends Component {
                 object.value = item.id;
                 result.push(object);
             })
-        }  
+        }
         return result;
     }
-    
+
     handleChangeSelect = async (selectedOption) => {
         this.setState({
             selectedEmployee: selectedOption
@@ -77,9 +77,9 @@ class ManageSchedule extends Component {
 
     handleClickBtnTime = (time) => {
         let { rangeTime } = this.state;
-        if(rangeTime && rangeTime.length > 0) {
+        if (rangeTime && rangeTime.length > 0) {
             rangeTime = rangeTime.map(item => {
-                if(item.id === time.id) item.isSelected = !item.isSelected;{
+                if (item.id === time.id) item.isSelected = !item.isSelected; {
                     return item;
                 }
             })
@@ -93,12 +93,12 @@ class ManageSchedule extends Component {
         let { rangeTime, selectedEmployee, currentDate } = this.state;
         let result = [];
 
-        if(!currentDate){
+        if (!currentDate) {
             toast.error('Invalid date!');
             return;
         }
 
-        if(selectedEmployee && _.isEmpty(selectedEmployee)) {
+        if (selectedEmployee && _.isEmpty(selectedEmployee)) {
             toast.error('Invalid selected employee!');
             return;
         }
@@ -106,9 +106,9 @@ class ManageSchedule extends Component {
         // let formatedDate = moment(currentDate).format(dateFormat.SEND_TO_SERVER);
         let formatedDate = new Date(currentDate).getTime();
 
-        if(rangeTime && rangeTime.length > 0) {
+        if (rangeTime && rangeTime.length > 0) {
             let selectedTime = rangeTime.filter(item => item.isSelected === true);
-            if(selectedTime && selectedTime.length > 0) {
+            if (selectedTime && selectedTime.length > 0) {
                 selectedTime.map((schedule, index) => {
                     let object = {};
                     object.employeeId = selectedEmployee.value;
@@ -117,7 +117,7 @@ class ManageSchedule extends Component {
                     result.push(object);
                     toast.success('Save schedule successfully!');
                 })
-            } else{
+            } else {
                 toast.error('Invalid selected time!');
                 return;
             }
@@ -131,48 +131,48 @@ class ManageSchedule extends Component {
 
         console.log('res: ', res);
     }
-    
+
     render() {
-        
+
         let { rangeTime } = this.state;
         let { language } = this.props;
-        
-       
+
+
         return (
             <div className='manage-schedule-container'>
                 <div className='m-s-title'>
-                    <FormattedMessage id='manage-schedule.title'/>
+                    <FormattedMessage id='manage-schedule.title' />
                 </div>
                 <div className='container'>
                     <div className='row'>
                         <div className='col-6 form-group'>
-                            
-                                <label><FormattedMessage id='manage-schedule.choose-employee'/></label>
-                                <Select
-                                    value={this.state.SelectedEmployee}
-                                    onChange={this.handleChangeSelect}
-                                    options={this.state.listEmployees}
-                                />
-                            
+
+                            <label><FormattedMessage id='manage-schedule.choose-employee' /></label>
+                            <Select
+                                value={this.state.SelectedEmployee}
+                                onChange={this.handleChangeSelect}
+                                options={this.state.listEmployees}
+                            />
+
                         </div>
                         <div className='col-6 form-group'>
-                            
-                                <label><FormattedMessage id='manage-schedule.choose-date'/></label>
-                                <DatePicker
-                                    onChange={this.handleOnChangeDatePicker}
-                                    className='form-control'
-                                    value={this.state.currentDate}
-                                    minDate={new Date()}
-                                />
-                            
+
+                            <label><FormattedMessage id='manage-schedule.choose-date' /></label>
+                            <DatePicker
+                                onChange={this.handleOnChangeDatePicker}
+                                className='form-control'
+                                value={this.state.currentDate}
+                                minDate={new Date()}
+                            />
+
                         </div>
                         <div className='col-12 pick-hour-container'>
-                            {rangeTime && rangeTime.length > 0 && 
+                            {rangeTime && rangeTime.length > 0 &&
                                 rangeTime.map((item, index) => {
                                     return (
-                                        <button className= {item.isSelected === true ? 'btn btn-schedule active' : 'btn btn-schedule' } 
-                                        key={index}
-                                        onClick={() => this.handleClickBtnTime(item)}>
+                                        <button className={item.isSelected === true ? 'btn btn-schedule active' : 'btn btn-schedule'}
+                                            key={index}
+                                            onClick={() => this.handleClickBtnTime(item)}>
                                             {language === LANGUAGES.VI ? item.valueVi : item.valueEn}
                                         </button>
                                     )
@@ -181,13 +181,13 @@ class ManageSchedule extends Component {
                         </div>
                         <div className='col-12'>
                             <button className='btn btn-primary btn-save-schedule'
-                            onClick={ () => this.handleSaveSchedule()}>
-                                <FormattedMessage id='manage-schedule.save'/>
+                                onClick={() => this.handleSaveSchedule()}>
+                                <FormattedMessage id='manage-schedule.save' />
                             </button>
                         </div>
+                    </div>
                 </div>
             </div>
-        </div>
         );
     }
 }

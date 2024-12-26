@@ -4,6 +4,7 @@ import _ from 'lodash';
 
 const MAX_NUMBER_SCHEDULE = process.env.MAX_NUMBER_SCHEDULE;
 
+
 let getTopEmployeeHome = (limitInput) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -144,6 +145,7 @@ let getDetailEmployeeById = (inputId) => {
 }
 
 let bulkCreateSchedule = (data) => {
+    console.log('check max: ', MAX_NUMBER_SCHEDULE)
     return new Promise(async (resolve, reject) => {
         console.log('DATA INPUT: ', data);
         try {
@@ -167,15 +169,11 @@ let bulkCreateSchedule = (data) => {
                     raw: true
                 });
 
-                if (existing && existing.length > 0) {
-                    existing = existing.map(item => {
-                        item.date = new Date(item.date).getTime;
-                        return item;
-                    });
-                }
+                console.log('check existing: ', existing)
+                console.log('check create: ', schedule)
 
                 let toCreate = _.differenceWith(schedule, existing, (a, b) => {
-                    return a.timeType === b.timeType && a.date === b.date;
+                    return a.timeType === b.timeType && +a.date === +b.date;
                 });
 
                 if (toCreate && toCreate.length > 0) {
@@ -205,7 +203,13 @@ let getScheduleByDate = (employeeId, date) => {
                     where: {
                         employeeId: employeeId,
                         date: date
-                    }
+                    },
+
+                    include: [
+                        { model: db.Allcode, as: 'timeTypeData', attributes: ['valueEn', 'valueVi'] },
+                    ],
+                    raw: false,
+                    nest: true
                 })
                 if (!dataSchedule) dataSchedule = [];
                 resolve({
