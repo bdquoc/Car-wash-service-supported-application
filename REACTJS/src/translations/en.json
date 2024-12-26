@@ -28,6 +28,9 @@
             "manage-specialty": "Manage Service",
             "tips": "Tips",
             "manage-tips": "Manage tips"
+        },
+        "employee": {
+            "manage-schedule": "Manage Employee's schedule"
         }
     },
     "manage-user": {
@@ -48,5 +51,13 @@
     "homepage": {
         "outstanding-employee": "Last week's featured employee",
         "more-infor": "More Infor"
+    },
+    
+    "manage-schedule": {
+        "title": "Manage work schedule",
+        "choose-employee": "Choose employee",
+        "choose-date": "Choose date",
+        "save": "Save infor"
     }
+    
 }

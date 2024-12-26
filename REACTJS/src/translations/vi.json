@@ -28,6 +28,10 @@
             "manage-specialty": "Quản lí dịch vụ",
             "tips": "Tips",
             "manage-tips": "Quản lí tips"
+        },
+        "employee": {
+            "manage-schedule": "Quản lí lịch làm việc"
+            
         }
     },
     "manage-user": {
@@ -48,5 +52,13 @@
     "homepage": {
         "outstanding-employee": "Nhân viên nổi bật tuần qua",
         "more-infor": "Xem thêm"
+    },
+    
+    "manage-schedule": {
+        "title": "Quan lí lịch làm việc",
+        "choose-employee": "Chọn nhân viên",
+        "choose-date": "Chọn ngày",
+        "save": "Lưu thông tin"
     }
+    
 }

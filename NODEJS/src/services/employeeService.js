@@ -1,4 +1,8 @@
 import db from '../models/index';
+require('dotenv').config();
+import _ from 'lodash';
+
+const MAX_NUMBER_SCHEDULE=process.env.MAX_NUMBER_SCHEDULE;
 
 let getTopEmployeeHome = (limitInput) => {
     return new Promise(async (resolve, reject) => {
@@ -52,18 +56,39 @@ let getAllEmployees = () => {
 let saveDetailInforEmployee = (inputData) => {
     return new Promise(async (resolve, reject) => {
         try {
-            if (!inputData.contentHTML || !inputData.id || !inputData.contentMarkdown) {
+            if (!inputData.contentHTML || !inputData.id || !inputData.contentMarkdown || !inputData.action) {
                 resolve({
                     errCode: 1,
                     errMessage: 'Missing required parameters'
                 })
             } else {
-                await db.Markdown.create({
-                    contentHTML: inputData.contentHTML,
-                    contentMarkdown: inputData.contentMarkdown,
-                    description: inputData.description,
-                    employeeId: inputData.employeeId,
-                }),
+                if (inputData.action === 'CREATE') {
+                    await db.Markdown.create({
+                        contentHTML: inputData.contentHTML,
+                        contentMarkdown: inputData.contentMarkdown,
+                        description: inputData.description,
+                        employeeId: inputData.id,
+                    })
+                } else if (inputData.action === 'EDIT') {
+                    let employeeMarkdown = await db.Markdown.findOne({
+                        where: { employeeId: inputData.id },
+                        raw: false,
+                    })
+
+                    if (employeeMarkdown) {
+                        employeeMarkdown.contentHTML = inputData.contentHTML;
+                        employeeMarkdown.contentMarkdown = inputData.contentMarkdown;
+                        employeeMarkdown.description = inputData.description;
+                        employeeMarkdown.updatedAt = new Date();
+                        await employeeMarkdown.save();
+                    }
+                }
+                // await db.Markdown.create({
+                //     contentHTML: inputData.contentHTML,
+                //     contentMarkdown: inputData.contentMarkdown,
+                //     description: inputData.description,
+                //     employeeId: inputData.employeeId,
+                // }),
                     resolve({
                         errCode: 0,
                         errMessage: 'Save detail infor employee success'
@@ -118,11 +143,59 @@ let getDetailEmployeeById = (inputId) => {
     })
 }
 
+let bulkCreateSchedule = (data) => {
+    return new Promise(async (resolve, reject) => {
+        console.log('DATA INPUT: ', data);
+        try {
+            if (!data.arrSchedule || !data.employeeId || !data.formatedDate) {
+                resolve({
+                    errCode: 1,
+                    errMessage: 'Missing required parameters'
+                })
+            } else {
+                let schedule = data.arrSchedule;
+                if(schedule && schedule.length > 0) {
+                    schedule.map (item => {
+                        item.maxNumber = MAX_NUMBER_SCHEDULE;
+                        return item;
+                    })
+                }
 
+                let existing = await db.Schedule.findAll({
+                    where: { employeeId: data.employeeId, date: data.formatedDate },
+                    attributes: ['timeType', 'date', 'employeeId', 'maxNumber'],
+                    raw: true
+                });
+
+                if (existing && existing.length > 0) {
+                    existing = existing.map(item => {
+                        item.date = new Date(item.date).getTime;
+                        return item;
+                    });
+                }
+
+                let toCreate = _.differenceWith(schedule, existing, (a, b) =>{
+                    return a.timeType === b.timeType && a.date === b.date;
+                } );
+
+                if (toCreate && toCreate.length > 0) {
+                    await db.Schedule.bulkCreate(toCreate);
+                }
+                resolve({
+                    errCode: 0,
+                    errMessage: 'OK'
+                })
+            }
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
 
 module.exports = {
     getTopEmployeeHome: getTopEmployeeHome,
     getAllEmployees: getAllEmployees,
     saveDetailInforEmployee: saveDetailInforEmployee,
-    getDetailEmployeeById: getDetailEmployeeById
+    getDetailEmployeeById: getDetailEmployeeById,
+    bulkCreateSchedule: bulkCreateSchedule
 }

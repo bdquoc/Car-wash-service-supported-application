@@ -8,8 +8,8 @@ import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 import './ManageEmployee.scss';
 import Select from 'react-select';
-import { LANGUAGES } from '../../../utils';
-import { saveDetailEmployee } from '../../../services/userService';
+import { CRUD_ACTIONS, LANGUAGES } from '../../../utils';
+import { getDetailInforEmployee } from '../../../services/userService';
 
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
@@ -22,7 +22,8 @@ class ManageEmployee extends Component {
             contentHTML: '',
             selectedEmployee: '',
             description: '',
-            listEmployees: []
+            listEmployees: [],
+            hasOldData: false,
         }
     }
 
@@ -86,16 +87,37 @@ class ManageEmployee extends Component {
             employeeId: selectedEmployee ? selectedEmployee.value : null,
         });
 
+        let { hasOldData } = this.state;
         this.props.saveDetailEmployee({
             contentHTML,
             contentMarkdown,
             description,
             id: selectedEmployee.value,
+            actions: hasOldData ? CRUD_ACTIONS.EDIT : CRUD_ACTIONS.CREATE
         });
     }
 
-    handleChange = (selectedEmployee) => {
+    handleChangeSelect =async (selectedEmployee) => {
         this.setState({ selectedEmployee });
+
+        let res =  await getDetailInforEmployee(selectedEmployee.value);
+        if( res && res.errCode ===0 && res.data && res.data.Markdown){
+            let markdown = res.data.Markdown;
+            this.setState({
+                contentHTML: markdown.contentHTML,
+                contentMarkdown: markdown.contentMarkdown,
+                description: markdown.description,
+                hasOldData: true,
+            })
+        } else {
+            this.setState({
+                contentHTML: '',
+                contentMarkdown: '',
+                description: '',
+                hasOldData: false,
+            })
+        }
+        console.log('check res: ', res)
     };
 
     handleOnChangeDesc = (event) => {
@@ -104,7 +126,7 @@ class ManageEmployee extends Component {
 
 
     render() {
-        console.log('check state: ', this.state)
+        let { hasOldData} = this.props;
         return (
             <div className='manage-employee-container'>
                 <div className='manage-employee-title'>
@@ -116,7 +138,7 @@ class ManageEmployee extends Component {
                         <label>Chọn nhân viên</label>
                         <Select
                             value={this.state.selectedEmployee}
-                            onChange={this.handleChange}
+                            onChange={this.handleChangeSelect}
                             options={this.state.listEmployees}
                         />
                     </div>
@@ -137,13 +159,16 @@ class ManageEmployee extends Component {
                         style={{ height: "500px" }}
                         renderHTML={(text) => mdParser.render(text)}
                         onChange={this.handleEditorChange}
+                        value={this.state.contentMarkdown}
                     />
                 </div>
 
                 <button
                     onClick={() => this.handleSaveContentMarkdown()}
-                    className='save-content-employee'>
-                    Lưu thông tin
+                    className= {hasOldData === true ? 'save-content-employee' : 'create-content-employee' } >
+                    {hasOldData === true ? 
+                        <span>Lưu thông tin</span> : <span>Tạo thông tin</span>
+                    }
                 </button>
             </div>
         );
@@ -163,7 +188,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchAllEmployees: (id) => dispatch(actions.fetchAllEmployees()),
+        fetchAllEmployees: () => dispatch(actions.fetchAllEmployees()),
         saveDetailEmployee: (data) => dispatch(actions.saveDetailEmployee(data))
     };
 };
