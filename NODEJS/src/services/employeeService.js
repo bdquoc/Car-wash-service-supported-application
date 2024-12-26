@@ -56,7 +56,7 @@ let getAllEmployees = () => {
 let saveDetailInforEmployee = (inputData) => {
     return new Promise(async (resolve, reject) => {
         try {
-            if (!inputData.contentHTML || !inputData.id || !inputData.contentMarkdown || !inputData.action) {
+            if (!inputData.contentHTML || !inputData.id || !inputData.contentMarkdown || !inputData.action || !inputData.action) {
                 resolve({
                     errCode: 1,
                     errMessage: 'Missing required parameters'
@@ -67,7 +67,7 @@ let saveDetailInforEmployee = (inputData) => {
                         contentHTML: inputData.contentHTML,
                         contentMarkdown: inputData.contentMarkdown,
                         description: inputData.description,
-                        employeeId: inputData.employeeId,
+                        employeeId: inputData.id,
                     })
                 } else if (inputData.action === 'EDIT') {
                     let employeeMarkdown = await db.Markdown.findOne({
