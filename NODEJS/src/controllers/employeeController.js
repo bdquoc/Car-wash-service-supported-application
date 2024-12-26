@@ -57,8 +57,7 @@ let getDetailEmployeeById = async (req, res) => {
 
 let bulkCreateSchedule = async (req, res) => {
     try {
-        let infor = req.body;
-        let response = await employeeService.bulkCreateSchedule(req.body);
+        let infor = await employeeService.bulkCreateSchedule(req.body);
         return res.status(200).json(infor);
     } catch (e) {
         console.log(e);

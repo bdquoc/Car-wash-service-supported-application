@@ -18,7 +18,7 @@ class ManageSchedule extends Component {
         super(props);
         this.state = {
             listEmployees: [],
-            SelectedEmployee: {},
+            selectedEmployee: {},
             currentDate: '',
             rangeTime: [],
         }
@@ -65,7 +65,7 @@ class ManageSchedule extends Component {
     
     handleChangeSelect = async (selectedOption) => {
         this.setState({
-            SelectedEmployee: selectedOption
+            selectedEmployee: selectedOption
         })
     }
 
@@ -115,6 +115,7 @@ class ManageSchedule extends Component {
                     object.date = formatedDate;
                     object.timeType = schedule.keyMap;
                     result.push(object);
+                    toast.success('Save schedule successfully!');
                 })
             } else{
                 toast.error('Invalid selected time!');
