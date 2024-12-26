@@ -214,7 +214,7 @@ let getScheduleByDate = (employeeId, date) => {
                 if (!dataSchedule) dataSchedule = [];
                 resolve({
                     errCode: 0,
-                    errMessage: 'OK'
+                    data: dataSchedule
                 })
             }
         } catch (e) {
