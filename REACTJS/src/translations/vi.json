@@ -31,7 +31,6 @@
         },
         "employee": {
             "manage-schedule": "Quản lí lịch làm việc"
-            
         }
     },
     "manage-user": {
@@ -53,12 +52,18 @@
         "outstanding-employee": "Nhân viên nổi bật tuần qua",
         "more-infor": "Xem thêm"
     },
-    
     "manage-schedule": {
         "title": "Quan lí lịch làm việc",
         "choose-employee": "Chọn nhân viên",
         "choose-date": "Chọn ngày",
         "save": "Lưu thông tin"
+    },
+    "customer": {
+        "detail-employee": {
+            "schedule": "Lịch bảo dưỡng",
+            "no-schedule": "Nhân viên không có lịch hẹn trong thời gian này, vui lòng chọn thời gian khác!",
+            "choose": "Chọn ",
+            "book-free": " và đặt (miễn phí)"
+        }
     }
-    
 }

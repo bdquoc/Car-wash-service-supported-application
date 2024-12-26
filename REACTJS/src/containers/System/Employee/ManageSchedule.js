@@ -115,7 +115,6 @@ class ManageSchedule extends Component {
                     object.date = formatedDate;
                     object.timeType = schedule.keyMap;
                     result.push(object);
-                    toast.success('Save schedule successfully!');
                 })
             } else {
                 toast.error('Invalid selected time!');
@@ -129,13 +128,19 @@ class ManageSchedule extends Component {
             formatedDate: formatedDate
         })
 
-        console.log('res: ', res);
+        if (res && res.errCode === 0) {
+            toast.success("Save Infor succeed!");
+        } else {
+            toast.error("Save Infor error!");
+            console.log('error saveBulkScheduleEmployee >>> res: ', res)
+        }
     }
 
     render() {
 
         let { rangeTime } = this.state;
         let { language } = this.props;
+        let yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
 
 
         return (
@@ -162,7 +167,7 @@ class ManageSchedule extends Component {
                                 onChange={this.handleOnChangeDatePicker}
                                 className='form-control'
                                 value={this.state.currentDate}
-                                minDate={new Date()}
+                                minDate={yesterday}
                             />
 
                         </div>

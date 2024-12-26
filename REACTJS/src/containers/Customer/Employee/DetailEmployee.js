@@ -11,17 +11,21 @@ class DetailEmployee extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            detailEmployee: {}
+            detailEmployee: {},
+            currentEmployeeId: -1,
         }
     }
 
     async componentDidMount() {
         if (this.props.match && this.props.match.params && this.props.match.params.id) {
             let id = this.props.match.params.id;
+            this.setState({
+                currentEmployeeId: id
+            })
             let res = await getDetailInforEmployee(id);
             if (res && res.errCode === 0) {
                 this.setState({
-                    detailEmployee: res.data
+                    detailEmployee: res.data,
                 })
             }
         }
@@ -72,7 +76,7 @@ class DetailEmployee extends Component {
                     <div className="schedule-employee">
                         <div className="content-left">
                             <EmployeeSchedule
-                                employeeIdFromParent={detailEmployee && detailEmployee.id ? detailEmployee.id : -1}
+                                employeeIdFromParent={this.state.currentEmployeeId}
                             />
                         </div>
                         <div className="content-right">

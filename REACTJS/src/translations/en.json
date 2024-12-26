@@ -52,12 +52,18 @@
         "outstanding-employee": "Last week's featured employee",
         "more-infor": "More Infor"
     },
-    
     "manage-schedule": {
         "title": "Manage work schedule",
         "choose-employee": "Choose employee",
         "choose-date": "Choose date",
         "save": "Save infor"
+    },
+    "customer": {
+        "detail-employee": {
+            "schedule": "Schedule",
+            "no-schedule": "Employee does not have appointments during this time, please choose another time!",
+            "choose": "Choose ",
+            "book-free": " and book (free)"
+        }
     }
-    
 }
