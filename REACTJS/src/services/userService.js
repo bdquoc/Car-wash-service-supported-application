@@ -50,10 +50,14 @@ const getDetailInforEmployee = (inputId) => {
 const saveBulkScheduleEmployee = (data) => {
     return axios.post('/api/bulk-create-schedule', data);
 }
+
+const getScheduleEmployeeByDate = (employeeId, date) => {
+    return axios.get(`/api/get-schedule-employee-by-date?employeeId=${employeeId}&date=${date}`)
+}
 export {
     handleLoginApi, getAllUsers, createNewUserService,
     deleteUserService, editUserService, getAllCodeService,
     getTopEmployeeHomeService, getAllEmployees,
     saveDetailEmployeeService, getDetailInforEmployee,
-    saveBulkScheduleEmployee
+    saveBulkScheduleEmployee, getScheduleEmployeeByDate
 }

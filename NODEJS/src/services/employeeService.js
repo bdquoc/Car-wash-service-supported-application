@@ -192,10 +192,38 @@ let bulkCreateSchedule = (data) => {
     })
 }
 
+let getScheduleByDate = (employeeId, date) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!employeeId || !date) {
+                resolve({
+                    errCode: 1,
+                    errMessage: 'Missing required parameters'
+                })
+            } else {
+                let dataSchedule = await db.Schedule.findAll({
+                    where: {
+                        employeeId: employeeId,
+                        date: date
+                    }
+                })
+                if (!dataSchedule) dataSchedule = [];
+                resolve({
+                    errCode: 0,
+                    errMessage: 'OK'
+                })
+            }
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+
 module.exports = {
     getTopEmployeeHome: getTopEmployeeHome,
     getAllEmployees: getAllEmployees,
     saveDetailInforEmployee: saveDetailInforEmployee,
     getDetailEmployeeById: getDetailEmployeeById,
-    bulkCreateSchedule: bulkCreateSchedule
+    bulkCreateSchedule: bulkCreateSchedule,
+    getScheduleByDate: getScheduleByDate
 }

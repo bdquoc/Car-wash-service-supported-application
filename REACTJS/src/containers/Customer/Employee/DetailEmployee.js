@@ -4,6 +4,7 @@ import HomeHeader from '../../HomePage/HomeHeader';
 import './DetailEmployee.scss';
 import { getDetailInforEmployee } from '../../../services/userService';
 import { LANGUAGES } from '../../../utils';
+import EmployeeSchedule from './EmployeeSchedule';
 
 
 class DetailEmployee extends Component {
@@ -69,7 +70,14 @@ class DetailEmployee extends Component {
                         </div>
                     </div>
                     <div className="schedule-employee">
+                        <div className="content-left">
+                            <EmployeeSchedule
+                                employeeIdFromParent={detailEmployee && detailEmployee.id ? detailEmployee.id : -1}
+                            />
+                        </div>
+                        <div className="content-right">
 
+                        </div>
                     </div>
                     <div className="detail-infor-employee">
                         {detailEmployee && detailEmployee.Markdown && detailEmployee.Markdown.contentHTML

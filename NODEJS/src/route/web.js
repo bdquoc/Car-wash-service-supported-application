@@ -27,6 +27,8 @@ let initWebRoutes = (app) => {
     router.post('/api/save-infor-employees', employeeController.postInfoEmployee);
     router.get('/api/get-detail-employee-by-id', employeeController.getDetailEmployeeById);
     router.post('/api/bulk-create-schedule', employeeController.bulkCreateSchedule);
+    router.get('/api/get-schedule-employee-by-date', employeeController.getScheduleByDate);
+
 
 
 
