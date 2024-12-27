@@ -308,6 +308,7 @@ export const getRequiredEmployeeInfor = () => {
                     resPayment: resPayment.data,
                     resProvince: resProvince.data
                 }
+                console.log('data:', data)
                 dispatch(fetchRequiredEmployeeInforSuccess(data));
             } else {
                 dispatch(fetchRequiredEmployeeInforFailed());
@@ -320,10 +321,10 @@ export const getRequiredEmployeeInfor = () => {
 }
 
 export const fetchRequiredEmployeeInforSuccess = (allRequiredData) => ({
-    type: actionTypes.FETCH_TOP_EMPLOYEES_SUCCESS,
+    type: actionTypes.FETCH_REQUIRED_EMPLOYEE_INFOR_SUCCESS,
     data: allRequiredData
 })
 
 export const fetchRequiredEmployeeInforFailed = () => ({
-    type: actionTypes.FETCH_TOP_EMPLOYEES_FAILED
+    type: actionTypes.FETCH_REQUIRED_EMPLOYEE_INFOR_FAILED
 })

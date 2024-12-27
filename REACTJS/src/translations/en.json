@@ -72,7 +72,14 @@
             "select-employee": "Select employee",
             "intro": "Introduction:",
             "add": "Create infor",
-            "save": "Save infor"
+            "save": "Save infor",
+            "price": "Service price",
+            "payment": "Payment method",
+            "province": "Province",
+            "nameFacility": "Facility's name",
+            "addressFacility": "Facility's address",
+            "note": "Note"
+            
         }
     }
 }

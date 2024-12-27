@@ -1,3 +1,4 @@
+import e from 'express';
 import db from '../models/index';
 require('dotenv').config();
 import _ from 'lodash';
@@ -57,12 +58,17 @@ let getAllEmployees = () => {
 let saveDetailInforEmployee = (inputData) => {
     return new Promise(async (resolve, reject) => {
         try {
-            if (!inputData.contentHTML || !inputData.id || !inputData.contentMarkdown || !inputData.action || !inputData.action) {
+            if (!inputData.contentHTML || !inputData.id ||  !inputData.contentMarkdown 
+                || !inputData.action || !inputData.selectedPrice || !inputData.selectedProvince 
+                || !inputData.selectedPayment || !inputData.addressFacility || !inputData.nameFacility
+                || !inputData.note) {
                 resolve({
                     errCode: 1,
                     errMessage: 'Missing required parameters'
                 })
             } else {
+
+                //upsert to Markdown table
                 if (inputData.action === 'CREATE') {
                     await db.Markdown.create({
                         contentHTML: inputData.contentHTML,
@@ -84,12 +90,35 @@ let saveDetailInforEmployee = (inputData) => {
                         await employeeMarkdown.save();
                     }
                 }
-                // await db.Markdown.create({
-                //     contentHTML: inputData.contentHTML,
-                //     contentMarkdown: inputData.contentMarkdown,
-                //     description: inputData.description,
-                //     employeeId: inputData.employeeId,
-                // }),
+                
+                //upsert to Employee_Infor table
+                let employeeInfor = await db.Employee_Infor.findOne({
+                    where: { employeeId: inputData.employeeId },
+                    raw: false
+                })
+
+                if (employeeInfor) {
+                    //update
+                    employeeInfor.employeeId = inputData.employeeId;
+                    employeeInfor.priceId = inputData.selectedPrice;
+                    employeeInfor.provinceId = inputData.selectedProvince;
+                    employeeInfor.paymentId = inputData.selectedPayment;
+                    employeeInfor.addressFacility = inputData.addressFacility;
+                    employeeInfor.nameFacility = inputData.nameFacility;
+                    employeeInfor.note = inputData.note;
+                    await employeeInfor.save()
+                } else {
+                    //create
+                    await db.Employee_Infor.create({
+                        employeeId: inputData.employeeId,
+                        priceId: inputData.selectedPrice,
+                        provinceId: inputData.selectedProvince,
+                        paymentId: inputData.selectedPayment,
+                        addressFacility: inputData.addressFacility,
+                        nameFacility: inputData.nameFacility,
+                        note: inputData.note,
+                    })
+                }
                 resolve({
                     errCode: 0,
                     errMessage: 'Save detail infor employee success'

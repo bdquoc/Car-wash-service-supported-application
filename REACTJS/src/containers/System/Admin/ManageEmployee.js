@@ -48,14 +48,39 @@ class ManageEmployee extends Component {
         let result = [];
         let { language } = this.props;
         if (inputData && inputData.length > 0) {
-            inputData.map((item, index) => {
-                let object = {};
-                let labelVi = type === 'USERS' ? `${item.lastName} ${item.firstName}` : '';
-                let labelEn = type === 'USERS' ? `${item.firstName} ${item.lastName}` : '';
-                object.label = language === LANGUAGES.VI ? labelVi : labelEn;
-                object.value = item.id;
-                result.push(object);
-            })
+            if (type === 'USERS') {
+                inputData.map((item, index) => {
+                    let object = {};
+                    let labelVi = `${item.lastName} ${item.firstName}` ;
+                    let labelEn = `${item.firstName} ${item.lastName}` ;
+                    object.label = language === LANGUAGES.VI ? labelVi : labelEn;
+                    object.value = item.id;
+                    result.push(object);
+                })
+            }
+
+            if (type === 'PRICE') {
+                inputData.map((item, index) => {
+                    let object = {};
+                    let labelVi = `${item.valueVi} VNĐ` ;
+                    let labelEn = `${item.valueEn} VNĐ` ;
+                    object.label = language === LANGUAGES.VI ? labelVi : labelEn;
+                    object.value = item.keyMap;
+                    result.push(object);
+                })
+            }
+
+            if (type === 'PAYMENT' || type === 'PROVINCE') {
+                inputData.map((item, index) => {
+                    let object = {};
+                    let labelVi = `${item.valueVi}` ;
+                    let labelEn = `${item.valueEn}` ;
+                    object.label = language === LANGUAGES.VI ? labelVi : labelEn;
+                    object.value = item.keyMap;
+                    result.push(object);
+                })
+            }
+            
         }
         return result;
     }
@@ -67,18 +92,27 @@ class ManageEmployee extends Component {
             })
         }
         if (prevProps.language !== this.props.language) {
-            let dataSelect = this.buildDataInputSelect(this.props.allEmployees);
+            let dataSelect = this.buildDataInputSelect(this.props.allEmployees, 'USERS');
+            let { resPayment, resPrice, resProvince } = this.props.allRequiredEmployeeInfor;
+            let dataSelectPrice = this.buildDataInputSelect(resPrice, 'PRICE');
+            let dataSelectPayment = this.buildDataInputSelect(resPayment, 'PAYMENT');
+            let dataSelectProvince = this.buildDataInputSelect(resProvince, 'PROVINCE');
+            
             this.setState({
-                listEmployees: dataSelect
+                listEmployees: dataSelect,
+                listPrice: dataSelectPrice,
+                listPayment: dataSelectPayment,
+                listProvince: dataSelectProvince,
             })
         }
 
         if (prevProps.allRequiredEmployeeInfor !== this.props.allRequiredEmployeeInfor) {
             let { resPayment, resPrice, resProvince } = this.props.allRequiredEmployeeInfor;
-            let dataSelectPrice = this.buildDataInputSelect(resPrice);
-            let dataSelectPayment = this.buildDataInputSelect(resPayment);
-            let dataSelectProvince = this.buildDataInputSelect(resProvince);
+            let dataSelectPrice = this.buildDataInputSelect(resPrice, 'PRICE');
+            let dataSelectPayment = this.buildDataInputSelect(resPayment, 'PAYMENT');
+            let dataSelectProvince = this.buildDataInputSelect(resProvince, 'PROVINCE');
 
+            
             console.log('data new: ', dataSelectPayment, dataSelectPrice, dataSelectProvince)
             this.setState({
                 listPrice: dataSelectPrice,
@@ -107,12 +141,12 @@ class ManageEmployee extends Component {
             console.error("Content is missing");
             return;
         }
-        console.log("Payload:", {
-            contentHTML,
-            contentMarkdown,
-            description,
-            employeeId: selectedEmployee ? selectedEmployee.value : null,
-        });
+        // console.log("Payload:", {
+        //     contentHTML,
+        //     contentMarkdown,
+        //     description,
+        //     employeeId: selectedEmployee ? selectedEmployee.value : null,
+        // });
 
         let { hasOldData } = this.state;
         this.props.saveDetailEmployee({
@@ -120,7 +154,14 @@ class ManageEmployee extends Component {
             contentMarkdown,
             description,
             id: selectedEmployee.value,
-            action: hasOldData ? CRUD_ACTIONS.EDIT : CRUD_ACTIONS.CREATE
+            action: hasOldData ? CRUD_ACTIONS.EDIT : CRUD_ACTIONS.CREATE,
+
+            selectedPrice: this.state.selectedPrice.value,
+            selectedPayment: this.state.selectedPayment.value,
+            selectedProvince: this.state.selectedProvince.value,
+            addressFacility: this.state.addressFacility,
+            nameFacility: this.state.nameFacility,
+            note: this.state.note,
         });
     }
 
@@ -144,18 +185,31 @@ class ManageEmployee extends Component {
                 hasOldData: false,
             })
         }
-        console.log('check res: ', res)
+        // console.log('check res: ', res)
     };
 
-    handleOnChangeDesc = (event) => {
-        this.setState({ description: event.target.value });
+    handleChangeSelectEmployeeInfor =async (selectedEmployee, name) => {
+        let stateName = name.name;
+        let stateCopy = { ...this.state };
+        stateCopy[stateName] = selectedEmployee;
+        this.setState(
+            ...stateCopy
+        );
+    }
+
+    handleOnChangeText = (event, id) => {
+       let stateCopy = { ...this.state };
+       stateCopy[id] = event.target.value;
+       this.setState({
+            ...stateCopy
+       })
     }
 
 
     render() {
 
         let { hasOldData } = this.props;
-
+        
         return (
             <div className='manage-employee-container'>
                 <div className='manage-employee-title'>
@@ -169,53 +223,70 @@ class ManageEmployee extends Component {
                             value={this.state.selectedEmployee}
                             onChange={this.handleChangeSelect}
                             options={this.state.listEmployees}
-                            placeholder={'Chọn nhana viên'}
+                            placeholder={<FormattedMessage id="admin.manage-employee.select-employee" />}
                         />
                     </div>
 
                     <div className='content-right form-group'>
                         <label><FormattedMessage id="admin.manage-employee.intro" /></label>
                         <textarea
-                            className='form-control' rows="4"
-                            onChange={(event) => this.handleOnChangeDesc(event)}
+                            className='form-control' 
+                            onChange={(event) => this.handleOnChangeText(event, 'description')}
                             value={this.state.description}>
-                            Thêm thông tin
                         </textarea>
                     </div>
                 </div>
                 <div className="more-infor-extra row">
                     <div className="col-4 form-group">
-                        <label>Chọn giá</label>
+                        <label><FormattedMessage id="admin.manage-employee.price" /></label>
                         <Select
+                            value={this.state.selectedPrice}
+                            onChange={this.handleChangeSelectEmployeeInfor}
                             options={this.state.listPrice}
-                            placeholder={'Chọn giá'}
+                            placeholder={<FormattedMessage id="admin.manage-employee.price" />}
+                            name="selectedPrice"
                         />
                     </div>
                     <div className="col-4 form-group">
-                        <label>Chọn phương thức thanh toán</label>
+                        <label><FormattedMessage id="admin.manage-employee.payment" /> </label>
                         <Select
+                            value={this.state.selectedPayment}
+                            onChange={this.handleChangeSelectEmployeeInfor}
                             options={this.state.listPayment}
-                            placeholder={'Chọn phương thức thanh toán'}
+                            placeholder={<FormattedMessage id="admin.manage-employee.payment" />}
+                            name="selectedPayment"
                         />
                     </div>
                     <div className="col-4 form-group">
-                        <label>Chọn tỉnh thành</label>
+                        <label><FormattedMessage id="admin.manage-employee.province" /> </label>
                         <Select
+                            value={this.state.selectedProvince}
+                            onChange={this.handleChangeSelectEmployeeInfor}
                             options={this.state.listProvince}
-                            placeholder={'Chọn tỉnh thành'}
+                            placeholder={<FormattedMessage id="admin.manage-employee.province" />}  
+                            name="selectedProvince"
                         />
                     </div>
                     <div className="col-4 form-group">
-                        <label>Tên cơ sở</label>
-                        <input className="form-control" />
+                        <label><FormattedMessage id="admin.manage-employee.nameFacility" /></label>
+                        <input className="form-control" 
+                            onChange={(event) => this.handleOnChangeText(event, 'nameFacility')}
+                            value={this.state.nameFacility}
+                        />
                     </div>
                     <div className="col-4 form-group">
-                        <label>Địa chỉ cơ sở</label>
-                        <input className="form-control" />
+                        <label><FormattedMessage id="admin.manage-employee.addressFacility" /></label>
+                        <input className="form-control" 
+                            onChange={(event) => this.handleOnChangeText(event, 'addressFacility')}
+                            value={this.state.addressFacility}
+                        />
                     </div>
                     <div className="col-4 form-group">
-                        <label>Note</label>
-                        <input className="form-control" />
+                        <label><FormattedMessage id="admin.manage-employee.note" /></label>
+                        <input className="form-control" 
+                            onChange={(event) => this.handleOnChangeText(event, 'note')}
+                            value={this.state.note}
+                        />
                     </div>
                 </div>
 

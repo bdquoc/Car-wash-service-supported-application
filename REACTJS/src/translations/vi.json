@@ -72,7 +72,13 @@
             "select-employee": "Chọn nhân viên",
             "intro": "Thông tin giới thiệu:",
             "add": "Tạo thông tin",
-            "save": "Lưu thông tin"
+            "save": "Lưu thông tin",
+            "price": "Giá dịch vụ",
+            "payment": "Phương thức thanh toán",
+            "province": "Tỉnh thành",
+            "nameFacility": "Tên cơ sở",
+            "addressFacility": "Địa chỉ cơ sở",
+            "note": "Ghi chú"
         }
     }
 }
