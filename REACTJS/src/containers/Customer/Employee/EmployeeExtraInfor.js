@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import './EmployeeExtraInfor.scss';
 import { LANGUAGES } from '../../../utils';
 import { FormattedMessage } from 'react-intl';
-import { getScheduleEmployeeByDate } from '../../../services/userService';
+import { getExtraInforEmployeeById } from '../../../services/userService';
+import NumberFormat from 'react-number-format';
 
 class EmployeeExtraInfor extends Component {
 
@@ -11,6 +12,7 @@ class EmployeeExtraInfor extends Component {
         super(props);
         this.state = {
             isShowDetailInfor: false,
+            extraInfor: {}
         }
     }
 
@@ -22,6 +24,15 @@ class EmployeeExtraInfor extends Component {
         if (this.props.language != prevProps.language) {
             //call api
         }
+
+        if (this.props.employeeIdFromParent !== prevProps.employeeIdFromParent) {
+            let res = await getExtraInforEmployeeById(this.props.employeeIdFromParent);
+            if (res && res.errCode === 0) {
+                this.setState({
+                    extraInfor: res.data
+                })
+            }
+        }
     }
 
     showHideDetailInfor = (status) => {
@@ -31,44 +42,103 @@ class EmployeeExtraInfor extends Component {
     }
 
     render() {
-        let { isShowDetailInfor } = this.state;
+        let { isShowDetailInfor, extraInfor } = this.state;
+        let { language } = this.props;
+
 
         return (
             <div className="employee-extra-infor-container">
                 <div className="content-up">
-                    <div className="text-address">ĐỊA CHỈ BẢO DƯỠNG</div>
-                    <div className="name-facility">Dịch vụ rửa xe Bảo Minh</div>
-                    <div className="detail-address">202 Võ Văn Ngân - Linh Xuân - Thủ Đức - TP Hồ Chí Minh</div>
+                    <div className="text-address">
+                        <FormattedMessage id="customer.extra-infor-employee.text-address" />
+                    </div>
+                    <div className="name-facility">
+                        {extraInfor && extraInfor.nameFacility ? extraInfor.nameFacility : ''}
+                    </div>
+                    <div className="detail-address">
+                        {extraInfor && extraInfor.addressFacility ? extraInfor.addressFacility : ''}
+                    </div>
                 </div>
                 <div className="content-down">
                     {isShowDetailInfor === false &&
                         <div className="short-infor">
-                            GIÁ DỊCH VỤ: 250.000đ
-                            <span onClick={() => this.showHideDetailInfor(true)}>
-                                Xem chi tiết
+                            <FormattedMessage id="customer.extra-infor-employee.price" />
+                            {extraInfor && extraInfor.priceTypeData && language === LANGUAGES.VI
+                                &&
+                                <NumberFormat
+                                    className="currency"
+                                    value={extraInfor.priceTypeData.valueVi}
+                                    displayType={'text'}
+                                    thousandSeparator={true}
+                                    suffix={'VND'}
+                                />
+                            }
+
+                            {extraInfor && extraInfor.priceTypeData && language === LANGUAGES.EN
+                                &&
+                                <NumberFormat
+                                    className="currency"
+                                    value={extraInfor.priceTypeData.valueEn}
+                                    displayType={'text'}
+                                    thousandSeparator={true}
+                                    prefix={'$'}
+                                />
+                            }
+                            <span className="detail" onClick={() => this.showHideDetailInfor(true)}>
+                                <FormattedMessage id="customer.extra-infor-employee.detail" />
                             </span>
                         </div>
                     }
 
                     {isShowDetailInfor === true &&
                         <>
-                            <div className="title-price">GIÁ DỊCH VỤ:</div>
+                            <div className="title-price">
+                                <FormattedMessage id="customer.extra-infor-employee.price" />
+                            </div>
                             <div className="detail-infor">
                                 <div className="price">
-                                    <span className="left"> Giá dịch vụ</span>
-                                    <span className="right">250.000đ</span>
+                                    <span className="left">
+                                        <FormattedMessage id="customer.extra-infor-employee.price" />
+                                    </span>
+                                    <span className="right">
+                                        {extraInfor && extraInfor.priceTypeData && language === LANGUAGES.VI
+                                            &&
+                                            <NumberFormat
+                                                className="currency"
+                                                value={extraInfor.priceTypeData.valueVi}
+                                                displayType={'text'}
+                                                thousandSeparator={true}
+                                                suffix={'VND'}
+                                            />
+                                        }
+                                        {extraInfor && extraInfor.priceTypeData && language === LANGUAGES.EN
+                                            &&
+                                            <NumberFormat
+                                                className="currency"
+                                                value={extraInfor.priceTypeData.valueEn}
+                                                displayType={'text'}
+                                                thousandSeparator={true}
+                                                prefix={'$'}
+                                            />
+                                        }
+                                    </span>
                                 </div>
                                 <div className="note">
-                                    Được ưu tiên giảm giá 10% khi đặt lịch qua BachoWash.com
+                                    {extraInfor && extraInfor.note ? extraInfor.note : ''}
                                 </div>
                             </div>
 
                             <div className="payment">
-                                Khách hàng có thể thanh toán chi phí bằng hình thức tiền mặt hoặc chuyển khoảnkhoản
+                                <FormattedMessage id="customer.extra-infor-employee.payment" />
+
+                                {extraInfor && extraInfor.paymentTypeData && language === LANGUAGES.VI
+                                    ? extraInfor.paymentTypeData.valueVi : ''}
+                                {extraInfor && extraInfor.paymentTypeData && language === LANGUAGES.EN
+                                    ? extraInfor.paymentTypeData.valueEn : ''}
                             </div>
                             <div className="hide-price">
                                 <span onClick={() => this.showHideDetailInfor(false)}>
-                                    Ẩn bảng giá
+                                    <FormattedMessage id="customer.extra-infor-employee.hide-price" />
                                 </span>
                             </div>
                         </>

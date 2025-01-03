@@ -83,11 +83,25 @@ let getScheduleByDate = async (req, res) => {
     }
 }
 
+let getExtraInforEmployeeById = async (req, res) => {
+    try {
+        let infor = await employeeService.getExtraInforEmployeeById(req.query.employeeId);
+        return res.status(200).json(infor);
+    } catch (e) {
+        console.log(e);
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'Error from server'
+        })
+    }
+}
+
 module.exports = {
     getTopEmployeeHome: getTopEmployeeHome,
     getAllEmployees: getAllEmployees,
     postInfoEmployee: postInfoEmployee,
     getDetailEmployeeById: getDetailEmployeeById,
     bulkCreateSchedule: bulkCreateSchedule,
-    getScheduleByDate: getScheduleByDate
+    getScheduleByDate: getScheduleByDate,
+    getExtraInforEmployeeById: getExtraInforEmployeeById
 }

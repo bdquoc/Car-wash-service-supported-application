@@ -88,7 +88,6 @@ class EmployeeSchedule extends Component {
                     allAvailableTime: res.data ? res.data : []
                 })
             }
-            console.log('check res schedule from react: ', res)
         }
     }
 

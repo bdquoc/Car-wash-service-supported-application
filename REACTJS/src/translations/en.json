@@ -64,6 +64,13 @@
             "no-schedule": "Employee does not have appointments during this time, please choose another time!",
             "choose": "Choose ",
             "book-free": " and book (free)"
+        },
+        "extra-infor-employee": {
+            "text-address": "Address of facility",
+            "price": "Service price",
+            "detail": "See details",
+            "payment": "The customer can pay the cost in the form of: ",
+            "hide-price": "Hide price list"
         }
     },
     "admin": {
@@ -79,7 +86,6 @@
             "nameFacility": "Facility's name",
             "addressFacility": "Facility's address",
             "note": "Note"
-            
         }
     }
 }
