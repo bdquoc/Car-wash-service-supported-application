@@ -31,13 +31,15 @@ let getAllEmployees = async (req, res) => {
 let postInfoEmployee = async (req, res) => {
     try {
         let infor = req.body;
+        console.log('Received data:', infor);
         let response = await employeeService.saveDetailInforEmployee(infor);
         return res.status(200).json(response);
     } catch (e) {
         console.log(e);
         return res.status(200).json({
             errCode: -1,
-            errMessage: 'Error from server'
+            errMessage: 'Error from server',
+            errorDetail: e.message
         })
     }
 }

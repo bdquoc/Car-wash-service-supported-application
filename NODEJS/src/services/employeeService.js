@@ -58,8 +58,9 @@ let getAllEmployees = () => {
 let saveDetailInforEmployee = (inputData) => {
     return new Promise(async (resolve, reject) => {
         try {
-            if (!inputData.contentHTML || !inputData.id ||  !inputData.contentMarkdown 
-                || !inputData.action || !inputData.selectedPrice || !inputData.selectedProvince 
+            inputData.employeeId = inputData.employeeId || inputData.id;
+            if (!inputData.contentHTML || !inputData.id || !inputData.contentMarkdown
+                || !inputData.action || !inputData.selectedPrice || !inputData.selectedProvince
                 || !inputData.selectedPayment || !inputData.addressFacility || !inputData.nameFacility
                 || !inputData.note) {
                 resolve({
@@ -90,7 +91,7 @@ let saveDetailInforEmployee = (inputData) => {
                         await employeeMarkdown.save();
                     }
                 }
-                
+
                 //upsert to Employee_Infor table
                 let employeeInfor = await db.Employee_Infor.findOne({
                     where: { employeeId: inputData.employeeId },
@@ -150,6 +151,17 @@ let getDetailEmployeeById = (inputId) => {
                             attributes: ['contentHTML', 'contentMarkdown', 'description']
                         },
                         { model: db.Allcode, as: 'positionData', attributes: ['valueEn', 'valueVi'] },
+                        {
+                            model: db.Employee_Infor,
+                            attributes: {
+                                exclude: ['id', 'employeeId']
+                            },
+                            include: [
+                                { model: db.Allcode, as: 'priceTypeData', attributes: ['valueEn', 'valueVi'] },
+                                { model: db.Allcode, as: 'provinceTypeData', attributes: ['valueEn', 'valueVi'] },
+                                { model: db.Allcode, as: 'paymentTypeData', attributes: ['valueEn', 'valueVi'] },
+                            ]
+                        }
                     ],
                     raw: false,
                     nest: true

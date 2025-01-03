@@ -5,6 +5,7 @@ import './DetailEmployee.scss';
 import { getDetailInforEmployee } from '../../../services/userService';
 import { LANGUAGES } from '../../../utils';
 import EmployeeSchedule from './EmployeeSchedule';
+import EmployeeExtraInfor from './EmployeeExtraInfor';
 
 
 class DetailEmployee extends Component {
@@ -80,7 +81,9 @@ class DetailEmployee extends Component {
                             />
                         </div>
                         <div className="content-right">
-
+                            <EmployeeExtraInfor
+                                employeeIdFromParent={this.state.currentEmployeeId}
+                            />
                         </div>
                     </div>
                     <div className="detail-infor-employee">

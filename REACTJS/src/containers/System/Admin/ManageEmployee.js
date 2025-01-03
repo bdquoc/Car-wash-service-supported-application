@@ -51,8 +51,8 @@ class ManageEmployee extends Component {
             if (type === 'USERS') {
                 inputData.map((item, index) => {
                     let object = {};
-                    let labelVi = `${item.lastName} ${item.firstName}` ;
-                    let labelEn = `${item.firstName} ${item.lastName}` ;
+                    let labelVi = `${item.lastName} ${item.firstName}`;
+                    let labelEn = `${item.firstName} ${item.lastName}`;
                     object.label = language === LANGUAGES.VI ? labelVi : labelEn;
                     object.value = item.id;
                     result.push(object);
@@ -62,8 +62,8 @@ class ManageEmployee extends Component {
             if (type === 'PRICE') {
                 inputData.map((item, index) => {
                     let object = {};
-                    let labelVi = `${item.valueVi} VNĐ` ;
-                    let labelEn = `${item.valueEn} VNĐ` ;
+                    let labelVi = `${item.valueVi} VNĐ`;
+                    let labelEn = `${item.valueEn} VNĐ`;
                     object.label = language === LANGUAGES.VI ? labelVi : labelEn;
                     object.value = item.keyMap;
                     result.push(object);
@@ -73,14 +73,14 @@ class ManageEmployee extends Component {
             if (type === 'PAYMENT' || type === 'PROVINCE') {
                 inputData.map((item, index) => {
                     let object = {};
-                    let labelVi = `${item.valueVi}` ;
-                    let labelEn = `${item.valueEn}` ;
+                    let labelVi = `${item.valueVi}`;
+                    let labelEn = `${item.valueEn}`;
                     object.label = language === LANGUAGES.VI ? labelVi : labelEn;
                     object.value = item.keyMap;
                     result.push(object);
                 })
             }
-            
+
         }
         return result;
     }
@@ -97,7 +97,7 @@ class ManageEmployee extends Component {
             let dataSelectPrice = this.buildDataInputSelect(resPrice, 'PRICE');
             let dataSelectPayment = this.buildDataInputSelect(resPayment, 'PAYMENT');
             let dataSelectProvince = this.buildDataInputSelect(resProvince, 'PROVINCE');
-            
+
             this.setState({
                 listEmployees: dataSelect,
                 listPrice: dataSelectPrice,
@@ -112,7 +112,7 @@ class ManageEmployee extends Component {
             let dataSelectPayment = this.buildDataInputSelect(resPayment, 'PAYMENT');
             let dataSelectProvince = this.buildDataInputSelect(resProvince, 'PROVINCE');
 
-            
+
             console.log('data new: ', dataSelectPayment, dataSelectPrice, dataSelectProvince)
             this.setState({
                 listPrice: dataSelectPrice,
@@ -167,15 +167,45 @@ class ManageEmployee extends Component {
 
     handleChangeSelect = async (selectedEmployee) => {
         this.setState({ selectedEmployee });
+        let { listPayment, listPrice, listProvince } = this.state;
 
         let res = await getDetailInforEmployee(selectedEmployee.value);
         if (res && res.errCode === 0 && res.data && res.data.Markdown) {
             let markdown = res.data.Markdown;
+
+            let addressFacility = '', nameFacility = '', note = '',
+                paymentId = '', priceId = '', provinceId = '',
+                selectedPayment = '', selectedPrice = '', selectedProvince = '';
+
+            if (res.data.Employee_Infor) {
+                addressFacility = res.data.Employee_Infor.addressFacility;
+                nameFacility = res.data.Employee_Infor.nameFacility;
+                note = res.data.Employee_Infor.note;
+                paymentId = res.data.Employee_Infor.paymentId;
+                priceId = res.data.Employee_Infor.priceId;
+                provinceId = res.data.Employee_Infor.provinceId;
+
+                selectedPayment = listPayment.find(item => {
+                    return item && item.value === paymentId
+                })
+                selectedPrice = listPrice.find(item => {
+                    return item && item.value === priceId
+                })
+                selectedProvince = listProvince.find(item => {
+                    return item && item.value === provinceId
+                })
+            }
             this.setState({
                 contentHTML: markdown.contentHTML,
                 contentMarkdown: markdown.contentMarkdown,
                 description: markdown.description,
                 hasOldData: true,
+                addressFacility: addressFacility,
+                nameFacility: nameFacility,
+                note: note,
+                selectedPayment: selectedPayment,
+                selectedPrice: selectedPrice,
+                selectedProvince: selectedProvince,
             })
         } else {
             this.setState({
@@ -183,33 +213,36 @@ class ManageEmployee extends Component {
                 contentMarkdown: '',
                 description: '',
                 hasOldData: false,
+                addressFacility: '',
+                nameFacility: '',
+                note: '',
             })
         }
         // console.log('check res: ', res)
     };
 
-    handleChangeSelectEmployeeInfor =async (selectedEmployee, name) => {
+    handleChangeSelectEmployeeInfor = async (selectedEmployee, name) => {
         let stateName = name.name;
         let stateCopy = { ...this.state };
         stateCopy[stateName] = selectedEmployee;
         this.setState(
-            ...stateCopy
+            stateCopy
         );
     }
 
     handleOnChangeText = (event, id) => {
-       let stateCopy = { ...this.state };
-       stateCopy[id] = event.target.value;
-       this.setState({
+        let stateCopy = { ...this.state };
+        stateCopy[id] = event.target.value;
+        this.setState({
             ...stateCopy
-       })
+        })
     }
 
 
     render() {
 
         let { hasOldData } = this.props;
-        
+
         return (
             <div className='manage-employee-container'>
                 <div className='manage-employee-title'>
@@ -230,7 +263,7 @@ class ManageEmployee extends Component {
                     <div className='content-right form-group'>
                         <label><FormattedMessage id="admin.manage-employee.intro" /></label>
                         <textarea
-                            className='form-control' 
+                            className='form-control'
                             onChange={(event) => this.handleOnChangeText(event, 'description')}
                             value={this.state.description}>
                         </textarea>
@@ -263,27 +296,27 @@ class ManageEmployee extends Component {
                             value={this.state.selectedProvince}
                             onChange={this.handleChangeSelectEmployeeInfor}
                             options={this.state.listProvince}
-                            placeholder={<FormattedMessage id="admin.manage-employee.province" />}  
+                            placeholder={<FormattedMessage id="admin.manage-employee.province" />}
                             name="selectedProvince"
                         />
                     </div>
                     <div className="col-4 form-group">
                         <label><FormattedMessage id="admin.manage-employee.nameFacility" /></label>
-                        <input className="form-control" 
+                        <input className="form-control"
                             onChange={(event) => this.handleOnChangeText(event, 'nameFacility')}
                             value={this.state.nameFacility}
                         />
                     </div>
                     <div className="col-4 form-group">
                         <label><FormattedMessage id="admin.manage-employee.addressFacility" /></label>
-                        <input className="form-control" 
+                        <input className="form-control"
                             onChange={(event) => this.handleOnChangeText(event, 'addressFacility')}
                             value={this.state.addressFacility}
                         />
                     </div>
                     <div className="col-4 form-group">
                         <label><FormattedMessage id="admin.manage-employee.note" /></label>
-                        <input className="form-control" 
+                        <input className="form-control"
                             onChange={(event) => this.handleOnChangeText(event, 'note')}
                             value={this.state.note}
                         />
