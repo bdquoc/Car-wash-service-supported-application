@@ -29,10 +29,7 @@ let initWebRoutes = (app) => {
     router.post('/api/bulk-create-schedule', employeeController.bulkCreateSchedule);
     router.get('/api/get-schedule-employee-by-date', employeeController.getScheduleByDate);
     router.get('/api/get-extra-infor-employee-by-id', employeeController.getExtraInforEmployeeById);
-
-
-
-
+    router.get('/api/get-profile-employee-by-id', employeeController.getProfileEmployeeById);
 
     return app.use("/", router);
 }

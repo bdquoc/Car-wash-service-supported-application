@@ -156,7 +156,7 @@ class EmployeeSchedule extends Component {
                                     <div className="book-free">
                                         <span>
                                             <FormattedMessage id="customer.detail-employee.choose" />
-                                            <i class="fas fa-hand-point-up"></i>
+                                            <i clasName="fas fa-hand-point-up"></i>
                                             <FormattedMessage id="customer.detail-employee.book-free" />
                                         </span>
                                     </div>

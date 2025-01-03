@@ -58,11 +58,14 @@ const getScheduleEmployeeByDate = (employeeId, date) => {
 const getExtraInforEmployeeById = (employeeId) => {
     return axios.get(`/api/get-extra-infor-employee-by-id?employeeId=${employeeId}`);
 }
+const getProfileEmployeeById = (employeeId) => {
+    return axios.get(`/api/get-profile-employee-by-id?employeeId=${employeeId}`);
+}
 export {
     handleLoginApi, getAllUsers, createNewUserService,
     deleteUserService, editUserService, getAllCodeService,
     getTopEmployeeHomeService, getAllEmployees,
     saveDetailEmployeeService, getDetailInforEmployee,
     saveBulkScheduleEmployee, getScheduleEmployeeByDate,
-    getExtraInforEmployeeById
+    getExtraInforEmployeeById, getProfileEmployeeById
 }
