@@ -6,6 +6,7 @@ import localization from 'moment/locale/vi';
 import { LANGUAGES } from '../../../utils';
 import { getScheduleEmployeeByDate } from '../../../services/userService';
 import { FormattedMessage } from 'react-intl';
+import BookingModal from './Modal/BookingModal';
 
 
 class EmployeeSchedule extends Component {
@@ -13,7 +14,9 @@ class EmployeeSchedule extends Component {
         super(props);
         this.state = {
             allDays: [],
-            allAvailableTime: []
+            allAvailableTime: [],
+            isOpenModalBooking: false,
+            dataScheduleTimeModal: {}
         }
     }
 
@@ -91,69 +94,87 @@ class EmployeeSchedule extends Component {
         }
     }
 
+    handleClickScheduleTime = (time) => {
+        this.setState({
+            isOpenModalBooking: true,
+            dataScheduleTimeModal: time
+        })
+    }
+
+    closeBookingClose = () => {
+        this.setState({
+            isOpenModalBooking: false
+        })
+    }
     render() {
 
-        let { allDays, allAvailableTime } = this.state;
+        let { allDays, allAvailableTime, isOpenModalBooking, dataScheduleTimeModal } = this.state;
         let { language } = this.props;
 
         return (
+            <>
+                <div className="employee-schedule-container">
+                    <div className="all-schedule">
+                        <select onChange={(event) => this.handleOnChangeSelect(event)}>
+                            {allDays && allDays.length > 0 &&
+                                allDays.map((item, index) => {
+                                    return (
+                                        <option
+                                            value={item.value}
+                                            key={index}
+                                        >
+                                            {item.label}
+                                        </option>
+                                    )
+                                }
 
-            <div className="employee-schedule-container">
-                <div className="all-schedule">
-                    <select onChange={(event) => this.handleOnChangeSelect(event)}>
-                        {allDays && allDays.length > 0 &&
-                            allDays.map((item, index) => {
-                                return (
-                                    <option
-                                        value={item.value}
-                                        key={index}
-                                    >
-                                        {item.label}
-                                    </option>
                                 )
                             }
+                        </select>
 
-                            )
-                        }
-                    </select>
-
-                </div>
-                <div className="all-available-time">
-                    <div className="text-calendar">
-                        <i class="fas fa-calendar-alt"><span><FormattedMessage id="customer.detail-employee.schedule"></FormattedMessage></span></i>
                     </div>
-                    <div className="time-content">
-                        {allAvailableTime && allAvailableTime.length > 0 ?
-                            <>
-                                <div className="time-content-btns">
-                                    {allAvailableTime.map((item, index) => {
-                                        let timeDisplay = language === LANGUAGES.VI ?
-                                            item.timeTypeData.valueVi : item.timeTypeData.valueEn;
-                                        return (
-                                            <button key={index}
-                                                className={language === LANGUAGES.VI ? 'btn-vie' : 'btn-en'}
-                                            >{timeDisplay}</button>
-                                        )
-                                    })
-                                    }
-                                </div>
+                    <div className="all-available-time">
+                        <div className="text-calendar">
+                            <i class="fas fa-calendar-alt"><span><FormattedMessage id="customer.detail-employee.schedule"></FormattedMessage></span></i>
+                        </div>
+                        <div className="time-content">
+                            {allAvailableTime && allAvailableTime.length > 0 ?
+                                <>
+                                    <div className="time-content-btns">
+                                        {allAvailableTime.map((item, index) => {
+                                            let timeDisplay = language === LANGUAGES.VI ?
+                                                item.timeTypeData.valueVi : item.timeTypeData.valueEn;
+                                            return (
+                                                <button key={index}
+                                                    className={language === LANGUAGES.VI ? 'btn-vie' : 'btn-en'}
+                                                >{timeDisplay}</button>
+                                            )
+                                        })
+                                        }
+                                    </div>
 
-                                <div className="book-free">
-                                    <span>
-                                        <FormattedMessage id="customer.detail-employee.choose" />
-                                        <i class="fas fa-hand-point-up"></i>
-                                        <FormattedMessage id="customer.detail-employee.book-free" />
-                                    </span>
+                                    <div className="book-free">
+                                        <span>
+                                            <FormattedMessage id="customer.detail-employee.choose" />
+                                            <i class="fas fa-hand-point-up"></i>
+                                            <FormattedMessage id="customer.detail-employee.book-free" />
+                                        </span>
+                                    </div>
+                                </>
+                                :
+                                <div className="no-schedule">
+                                    <FormattedMessage id="customer.detail-employee.no-schedule" />
                                 </div>
-                            </>
-                            :
-                            <div className="no-schedule">
-                                <FormattedMessage id="customer.detail-employee.no-schedule" />
-                            </div>
-                        }
+                            }
+                        </div>
                     </div>
                 </div>
-            </div>
+                <BookingModal
+                    isOpenModal={isOpenModalBooking}
+                    closeBookingClose={this.closeBookingClose}
+                    dataTime={dataScheduleTimeModal}
+                />
+            </>
         );
 
     }
