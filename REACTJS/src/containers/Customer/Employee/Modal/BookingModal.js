@@ -48,6 +48,8 @@ class BookingModal extends Component {
                         <div className="employee-infor">
                             <ProfileEmployee
                                 employeeId={employeeId}
+                                isShowDescriptionEmployee={false}
+                                dataTime={dateTime}
                             />
                         </div>
                         <div className="row">
