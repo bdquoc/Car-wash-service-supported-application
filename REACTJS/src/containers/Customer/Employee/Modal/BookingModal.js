@@ -11,6 +11,7 @@ import { LANGUAGES } from '../../../../utils';
 import Select from 'react-select';
 import { postCustomerBookAppointment } from '../../../../services/userService';
 import { toast } from 'react-toastify';
+import moment from 'moment';
 
 
 class BookingModal extends Component {
@@ -63,6 +64,7 @@ class BookingModal extends Component {
             if (this.props.dataTime && !_.isEmpty(this.props.dataTime)) {
                 let employeeId = this.props.dataTime.employeeId;
                 let timeType = this.props.dataTime.timeType;
+                console.log('employeeId: ', employeeId);
                 this.setState({
                     employeeId: employeeId,
                     timeType: timeType
@@ -92,8 +94,40 @@ class BookingModal extends Component {
         })
     }
 
+    buildTimeBooking = (dataTime) => {
+        let language = this.props;
+        if (dataTime && !_.isEmpty(dataTime)) {
+            let time = language === LANGUAGES.VI ? dataTime.timeTypeData.valueVi : dataTime.timeTypeData.valueEn;
+            let date = language === LANGUAGES.VI ?
+                moment.unix(+dataTime.date / 1000).format('dddd - DD/MM/YYYY')
+                :
+                moment.unix(+dataTime.date / 1000).locale('en').format('ddd - MM/DD/YYYY');
+
+            return `${time} - ${date}`;
+        }
+        return '';
+    }
+
+    buildEmployeeName = (dataTime) => {
+        let { language } = this.props;
+        if (dataTime && !_.isEmpty(dataTime)) {
+            let name = language === LANGUAGES.VI ?
+                `${dataTime.employeeData.lastName} ${dataTime.employeeData.firstName}`
+                :
+                `${dataTime.employeeData.firstName} ${dataTime.employeeData.lastName}`;
+            return name;
+        }
+        return '';
+    }
+
     handleConfirmBooking = async () => {
         let date = new Date(this.state.birthday).getTime();
+        let timeString = this.buildTimeBooking(this.props.dataTime);
+        let employeeName = this.buildEmployeeName(this.props.dataTime);
+        console.log('date: ', date);
+        console.log('timeString: ', timeString);
+        console.log('employeeName: ', employeeName);
+        console.log('check state: ', this.state);
 
         let res = await postCustomerBookAppointment({
             fullName: this.state.fullName,
@@ -105,6 +139,9 @@ class BookingModal extends Component {
             selectedGender: this.state.selectedGender.value,
             employeeId: this.state.employeeId,
             timeType: this.state.timeType,
+            language: this.props.language,
+            timeString: timeString,
+            employeeName: employeeName
         });
 
         if (res && res.errCode === 0) {
@@ -121,6 +158,7 @@ class BookingModal extends Component {
         if (dataTime && !_.isEmpty(dataTime)) {
             employeeId = dataTime.employeeId;
         }
+        console.log('dataTime: ', dataTime);
         return (
             <Modal
                 isOpen={isOpenModal}
@@ -241,6 +279,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         getGenders: () => dispatch(actions.fetchGenderStart()),
+
     };
 };
 

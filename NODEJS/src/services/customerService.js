@@ -1,15 +1,26 @@
 import db from '../models/index';
 require('dotenv').config();
+import emailService from './emailService';
 
 let postBookAppointment = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
-            if (!data.email || !data.employeeId || !data.date || !data.timeType) {
+            if (!data.email || !data.employeeId || !data.date || !data.timeType || !data.fullName) {
                 resolve({
                     errCode: 1,
                     errMessage: 'Missing required parameters',
                 })
             } else {
+
+                await emailService.sendSimpleEmail({
+                    language: data.language,
+                    receiverEmail: data.email,
+                    customerName: data.fullName,
+                    time: data.timeString,
+                    employeeName: data.employeeName,
+                    redirectLink: 'https://www.facebook.com/profile.php?id=100014256210644'
+                });
+
                 let user = await db.User.findOrCreate({
                     where: { email: data.email },
                     defaults: {

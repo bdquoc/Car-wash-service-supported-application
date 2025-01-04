@@ -248,6 +248,7 @@ let getScheduleByDate = (employeeId, date) => {
 
                     include: [
                         { model: db.Allcode, as: 'timeTypeData', attributes: ['valueEn', 'valueVi'] },
+                        { model: db.User, as: 'employeeData', attributes: ['firstName', 'lastName'] },
                     ],
                     raw: false,
                     nest: true
