@@ -140,13 +140,14 @@ class EmployeeSchedule extends Component {
                         <div className="time-content">
                             {allAvailableTime && allAvailableTime.length > 0 ?
                                 <>
-                                    <div className="time-content-btns">
+                                    <div className="time-content-btns" >
                                         {allAvailableTime.map((item, index) => {
                                             let timeDisplay = language === LANGUAGES.VI ?
                                                 item.timeTypeData.valueVi : item.timeTypeData.valueEn;
                                             return (
                                                 <button key={index}
                                                     className={language === LANGUAGES.VI ? 'btn-vie' : 'btn-en'}
+                                                    onClick={() => this.handleClickScheduleTime(item)}
                                                 >{timeDisplay}</button>
                                             )
                                         })

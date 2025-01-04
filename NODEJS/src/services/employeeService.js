@@ -320,7 +320,7 @@ let getProfileEmployeeById = (inputId) => {
                     include: [
                         {
                             model: db.Markdown,
-                            attributes: ['contentHTML', 'contentMarkdown', 'description']
+                            attributes: ['description', 'contentHTML', 'contentMarkdown']
                         },
                         { model: db.Allcode, as: 'positionData', attributes: ['valueEn', 'valueVi'] },
                         {

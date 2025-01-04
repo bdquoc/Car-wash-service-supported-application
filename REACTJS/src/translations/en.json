@@ -71,6 +71,20 @@
             "detail": "See details",
             "payment": "The customer can pay the cost in the form of: ",
             "hide-price": "Hide price list"
+        },
+        "booking-modal": {
+            "title": "Maintenance booking information",
+            "fullName": "Full name",
+            "phoneNumber": "Phone number",
+            "email": "Email",
+            "address": "Address",
+            "reason": "Reason for maintenance",
+            "birthday": "Date of birth",
+            "gender": "Genders",
+            "btnConfirm": "Confirm",
+            "btnCancel": "Cancel",
+            "priceBooking": "Free booking",
+            "price": "Price: "
         }
     },
     "admin": {

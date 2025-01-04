@@ -51,7 +51,7 @@ class ProfileEmployee extends Component {
             return (
                 <>
                     <div>{time} - {date}</div>
-                    <div>Miễn phí đặt lịch</div>
+                    <div><FormattedMessage id="customer.booking-modal.priceBooking"></FormattedMessage></div>
                 </>
             )
         }
@@ -68,10 +68,10 @@ class ProfileEmployee extends Component {
         }
         return (
             <div className="profile-employee-container">
-                <div className="info-employee">
+                <div className="intro-employee">
                     <div
                         className="content-left"
-                        style={{ backgroundImage: `url(${dataProfile && dataProfile.image})` }}>
+                        style={{ backgroundImage: `url(${dataProfile && dataProfile.image ? dataProfile.image : ''})` }}>
                     </div>
                     <div className="content-right">
                         <div className="up">
@@ -98,7 +98,7 @@ class ProfileEmployee extends Component {
                     </div>
                 </div>
                 <div className="price">
-                    Giá bảo dưỡng:
+                    <FormattedMessage id="customer.booking-modal.price"></FormattedMessage>
                     {dataProfile && dataProfile.Employee_Infor && language === LANGUAGES.VI &&
                         <NumberFormat
                             className="currency"

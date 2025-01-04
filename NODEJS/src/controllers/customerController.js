@@ -1,4 +1,4 @@
-import employeeService from '../services/customerService';
+import customerService from '../services/customerService';
 
 let postBookAppointment = async (req, res) => {
     try {
