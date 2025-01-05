@@ -30,12 +30,22 @@ class ManageEmployee extends Component {
             listPrice: [],
             listPayment: [],
             listProvince: [],
+            listFacility: [],
+            listSpecialty: [],
+
+
             selectedPrice: '',
             selectedPayment: '',
             selectedProvince: '',
+            selectedFacility: '',
+            selectedSpecialty: '',
+
+
             nameFacility: '',
             addressFacility: '',
-            note: ''
+            note: '',
+            facilityId: '',
+            specialtyId: ''
         }
     }
 
@@ -81,6 +91,15 @@ class ManageEmployee extends Component {
                 })
             }
 
+            if (type === 'SPECIALTY') {
+                inputData.map((item, index) => {
+                    let object = {};
+                    object.label = item.name;
+                    object.value = item.id;
+                    result.push(object);
+                })
+            }
+
         }
         return result;
     }
@@ -93,16 +112,18 @@ class ManageEmployee extends Component {
         }
         if (prevProps.language !== this.props.language) {
             let dataSelect = this.buildDataInputSelect(this.props.allEmployees, 'USERS');
-            let { resPayment, resPrice, resProvince } = this.props.allRequiredEmployeeInfor;
+            let { resPayment, resPrice, resProvince, resSpecialty } = this.props.allRequiredEmployeeInfor;
             let dataSelectPrice = this.buildDataInputSelect(resPrice, 'PRICE');
             let dataSelectPayment = this.buildDataInputSelect(resPayment, 'PAYMENT');
             let dataSelectProvince = this.buildDataInputSelect(resProvince, 'PROVINCE');
+            let dataSelectSpecialty = this.buildDataInputSelect(resSpecialty, 'SPECIALTY');
 
             this.setState({
                 listEmployees: dataSelect,
                 listPrice: dataSelectPrice,
                 listPayment: dataSelectPayment,
                 listProvince: dataSelectProvince,
+                listSpecialty: dataSelectSpecialty,
             })
         }
 
@@ -162,6 +183,8 @@ class ManageEmployee extends Component {
             addressFacility: this.state.addressFacility,
             nameFacility: this.state.nameFacility,
             note: this.state.note,
+            facilityId: this.state.selectedFacility && this.state.selectedFacility.value ? this.state.selectedFacility.value : '',
+            specialtyId: this.state.selectedSpecialty.value
         });
     }
 
@@ -323,9 +346,32 @@ class ManageEmployee extends Component {
                     </div>
                 </div>
 
+                <div className="row">
+                    <div className="col-4 form-group">
+                        <label><FormattedMessage id="admin.manage-employee.specialty"></FormattedMessage></label>
+                        <Select
+                            value={this.state.selectedSpecialty}
+                            options={this.state.listSpecialty}
+                            placeholder={<FormattedMessage id="admin.manage-employee.specialty"></FormattedMessage>}
+                            onChange={this.handleChangeSelectEmployeeInfor}
+                            name="selectedSpecialty"
+                        />
+                    </div>
+                    <div className="col-4 form-group">
+                        <label><FormattedMessage id="admin.manage-employee.select-facility"></FormattedMessage></label>
+                        <Select
+                            value={this.state.selectedFacility}
+                            options={this.state.listFacility}
+                            placeholder={<FormattedMessage id="admin.manage-employee.select-facility"></FormattedMessage>}
+                            onChange={this.handleChangeSelectEmployeeInfor}
+                            name="selectedFacility"
+                        />
+                    </div>
+                </div>
+
                 <div className='manage-employee-editor'>
                     <MdEditor
-                        style={{ height: "500px" }}
+                        style={{ height: "300px" }}
                         renderHTML={(text) => mdParser.render(text)}
                         onChange={this.handleEditorChange}
                         value={this.state.contentMarkdown}

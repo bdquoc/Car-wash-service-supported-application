@@ -14,6 +14,8 @@ module.exports = (sequelize, DataTypes) => {
     }
     Employee_Infor.init({
         employeeId: DataTypes.INTEGER,
+        specialtyId: DataTypes.INTEGER,
+        facilityId: DataTypes.INTEGER,
         priceId: DataTypes.STRING,
         provinceId: DataTypes.STRING,
         paymentId: DataTypes.STRING,

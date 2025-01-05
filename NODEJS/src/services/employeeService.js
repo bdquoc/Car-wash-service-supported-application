@@ -55,17 +55,36 @@ let getAllEmployees = () => {
     })
 }
 
+let checkRequiredFields = (inputData) => {
+    let arrFields = ['employeeId', 'contentHTML', 'contentMarkdown', 'action',
+        'selectedPrice', 'selectedPayment', 'selectedProvince', 'nameFacility',
+        'addressFacility', 'note', 'specialtyId'
+    ]
+
+    let isValid = true;
+    let element = '';
+    for (let i = 0; i < arrFields.length; i++) {
+        if (!inputData[arrFields[i]]) {
+            isValid = false;
+            element = arrFields[i]
+            break;
+        }
+    }
+
+    return {
+        isValid: isValid,
+        element: element
+    }
+}
+
 let saveDetailInforEmployee = (inputData) => {
     return new Promise(async (resolve, reject) => {
         try {
-            inputData.employeeId = inputData.employeeId || inputData.id;
-            if (!inputData.contentHTML || !inputData.id || !inputData.contentMarkdown
-                || !inputData.action || !inputData.selectedPrice || !inputData.selectedProvince
-                || !inputData.selectedPayment || !inputData.addressFacility || !inputData.nameFacility
-                || !inputData.note) {
+            let checkObj = checkRequiredFields(inputData);
+            if (checkObj.isValid === false) {
                 resolve({
                     errCode: 1,
-                    errMessage: 'Missing required parameters'
+                    errMessage: `Missing required parameters: ${checkObj.element}`
                 })
             } else {
 
@@ -107,6 +126,9 @@ let saveDetailInforEmployee = (inputData) => {
                     employeeInfor.addressFacility = inputData.addressFacility;
                     employeeInfor.nameFacility = inputData.nameFacility;
                     employeeInfor.note = inputData.note;
+                    employeeInfor.specialtyId = inputData.specialtyId;
+                    employeeInfor.facilityId = inputData.facilityId;
+
                     await employeeInfor.save()
                 } else {
                     //create
@@ -118,6 +140,8 @@ let saveDetailInforEmployee = (inputData) => {
                         addressFacility: inputData.addressFacility,
                         nameFacility: inputData.nameFacility,
                         note: inputData.note,
+                        specialtyId: inputData.specialtyId,
+                        facilityId: inputData.facilityId
                     })
                 }
                 resolve({

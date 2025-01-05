@@ -100,7 +100,9 @@
             "province": "Tỉnh thành",
             "nameFacility": "Tên cơ sở",
             "addressFacility": "Địa chỉ cơ sở",
-            "note": "Ghi chú"
+            "note": "Ghi chú",
+            "specialty": "Chọn chuyên môn",
+            "select-facility": "Chọn cơ sở"
         }
     }
 }
