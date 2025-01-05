@@ -15,6 +15,7 @@ import HomePage from './HomePage/HomePage.js';
 import CustomScrollbars from '../components/CustomScrollbars.js';
 import DetailEmployee from './Customer/Employee/DetailEmployee';
 import Employee from '../routes/Employee';
+import VerifyEmail from './Customer/VerifyEmail';
 
 class App extends Component {
 
@@ -50,6 +51,7 @@ class App extends Component {
                                     <Route path={'/employee/'} component={userIsAuthenticated(Employee)} />
                                     <Route path={path.HOMEPAGE} component={HomePage} />
                                     <Route path={path.DETAIL_EMPLOYEE} component={DetailEmployee} />
+                                    <Route path={path.VERIFY_EMAIL_BOOKING} component={VerifyEmail} />
                                 </Switch>
                             </CustomScrollbars>
                         </div>

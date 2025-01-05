@@ -65,6 +65,10 @@ const getProfileEmployeeById = (employeeId) => {
 const postCustomerBookAppointment = (data) => {
     return axios.post('/api/customer-book-appointment', data);
 }
+
+const postVerifyBookAppointment = (data) => {
+    return axios.post('/api/verify-book-appointment', data);
+}
 export {
     handleLoginApi, getAllUsers, createNewUserService,
     deleteUserService, editUserService, getAllCodeService,
@@ -72,5 +76,5 @@ export {
     saveDetailEmployeeService, getDetailInforEmployee,
     saveBulkScheduleEmployee, getScheduleEmployeeByDate,
     getExtraInforEmployeeById, getProfileEmployeeById,
-    postCustomerBookAppointment
+    postCustomerBookAppointment, postVerifyBookAppointment
 }
