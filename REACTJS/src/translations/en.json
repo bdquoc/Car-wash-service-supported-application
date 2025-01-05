@@ -50,7 +50,8 @@
     },
     "homepage": {
         "outstanding-employee": "Last week's featured employee",
-        "more-infor": "More Infor"
+        "more-infor": "More Infor",
+        "specialty-popular": "Popular services"
     },
     "manage-schedule": {
         "title": "Manage work schedule",
