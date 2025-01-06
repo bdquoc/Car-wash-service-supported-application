@@ -16,6 +16,9 @@ import CustomScrollbars from '../components/CustomScrollbars.js';
 import DetailEmployee from './Customer/Employee/DetailEmployee';
 import Employee from '../routes/Employee';
 import VerifyEmail from './Customer/VerifyEmail';
+import DetailSpecialty from './System/Specialty/DetailSpecialty';
+import Register from './Auth/Register';
+import ForgotPassword from './Auth/ForgotPassword';
 
 class App extends Component {
 
@@ -47,10 +50,14 @@ class App extends Component {
                                 <Switch>
                                     <Route path={path.HOME} exact component={(Home)} />
                                     <Route path={path.LOGIN} component={userIsNotAuthenticated(Login)} />
+                                    <Route path={path.REGISTER} component={Register} />
+                                    <Route path={path.FORGOT_PASSWORD} component={ForgotPassword} />
                                     <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
                                     <Route path={'/employee/'} component={userIsAuthenticated(Employee)} />
                                     <Route path={path.HOMEPAGE} component={HomePage} />
                                     <Route path={path.DETAIL_EMPLOYEE} component={DetailEmployee} />
+                                    <Route path={path.DETAIL_SPECIALTY} component={DetailSpecialty} />
+
                                     <Route path={path.VERIFY_EMAIL_BOOKING} component={VerifyEmail} />
                                 </Switch>
                             </CustomScrollbars>

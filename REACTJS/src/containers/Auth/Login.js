@@ -86,10 +86,10 @@ class Login extends Component {
                         <div className="col-12 form-group login-input">
                             <label>Password:</label>
                             <div className="custom-input-password">
-                                <input type={this.state.isShowPassword ? 'text' : 'password'} 
-                                className="form-control" placeholder="Enter your password" 
-                                onChange={(event) => this.handleOnChangePassword(event)} 
-                                onKeyDown={(event) => this.handleKeyDonw(event)}/>
+                                <input type={this.state.isShowPassword ? 'text' : 'password'}
+                                    className="form-control" placeholder="Enter your password"
+                                    onChange={(event) => this.handleOnChangePassword(event)}
+                                    onKeyDown={(event) => this.handleKeyDonw(event)} />
                                 <span
                                     onClick={() => { this.handleShowHidePassword() }}
 
@@ -105,7 +105,18 @@ class Login extends Component {
                             <button class="btn-login" onClick={() => { this.handleLogin() }}>Login</button>
                         </div>
                         <div className="col-12">
-                            <span className="forgot-password">Forgot your password</span>
+                            <span
+                                className="forgot-password"
+                                onClick={() => this.props.navigate('/forgot-password')}>
+                                Forgot your password
+                            </span>
+                        </div>
+                        <div className="col-12">
+                            <span
+                                className="sign-up"
+                                onClick={() => this.props.navigate('/register')}>
+                                Or Sign up
+                            </span>
                         </div>
                         <div className="col-12 text-center mt-3">
                             <span className="text-other-login">Or login with:</span>
