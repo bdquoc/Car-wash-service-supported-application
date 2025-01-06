@@ -5,6 +5,14 @@ const handleLoginApi = (userEmail, userPassword) => {
     return axios.post('/api/login', { email: userEmail, password: userPassword });
 }
 
+const handleRegisterApi = (userEmail, userPassword) => {
+    return axios.post('/api/register', { email: userEmail, password: userPassword });
+}
+
+const handleForgotPasswordApi = (userEmail) => {
+    return axios.post('/api/register', { email: userEmail });
+}
+
 const getAllUsers = (inputId) => {
     return axios.get(`/api/get-all-users?id=${inputId}`)
 }
@@ -77,12 +85,12 @@ const getAllSpecialty = () => {
     return axios.get(`/api/get-specialty`);
 }
 export {
-    handleLoginApi, getAllUsers, createNewUserService,
+    handleLoginApi, handleRegisterApi, getAllUsers, createNewUserService,
     deleteUserService, editUserService, getAllCodeService,
     getTopEmployeeHomeService, getAllEmployees,
     saveDetailEmployeeService, getDetailInforEmployee,
     saveBulkScheduleEmployee, getScheduleEmployeeByDate,
     getExtraInforEmployeeById, getProfileEmployeeById,
     postCustomerBookAppointment, postVerifyBookAppointment,
-    createNewSpecialty, getAllSpecialty
+    createNewSpecialty, getAllSpecialty, handleForgotPasswordApi
 }

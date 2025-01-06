@@ -9,7 +9,7 @@ import 'react-markdown-editor-lite/lib/index.css';
 import './ManageEmployee.scss';
 import Select from 'react-select';
 import { CRUD_ACTIONS, LANGUAGES } from '../../../utils';
-import { getDetailInforEmployee, saveDetailEmployee } from '../../../services/userService';
+import { getDetailInforEmployee, saveDetailEmployeeService } from '../../../services/userService';
 
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
@@ -128,10 +128,11 @@ class ManageEmployee extends Component {
         }
 
         if (prevProps.allRequiredEmployeeInfor !== this.props.allRequiredEmployeeInfor) {
-            let { resPayment, resPrice, resProvince } = this.props.allRequiredEmployeeInfor;
+            let { resPayment, resPrice, resProvince, resSpecialty } = this.props.allRequiredEmployeeInfor;
             let dataSelectPrice = this.buildDataInputSelect(resPrice, 'PRICE');
             let dataSelectPayment = this.buildDataInputSelect(resPayment, 'PAYMENT');
             let dataSelectProvince = this.buildDataInputSelect(resProvince, 'PROVINCE');
+            let dataSelectSpecialty = this.buildDataInputSelect(resSpecialty, 'SPECIALTY');
 
 
             console.log('data new: ', dataSelectPayment, dataSelectPrice, dataSelectProvince)
@@ -139,6 +140,7 @@ class ManageEmployee extends Component {
                 listPrice: dataSelectPrice,
                 listPayment: dataSelectPayment,
                 listProvince: dataSelectProvince,
+                listSpecialty: dataSelectSpecialty
             })
         }
     }

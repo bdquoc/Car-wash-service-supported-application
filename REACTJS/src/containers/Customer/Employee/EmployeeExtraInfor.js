@@ -17,7 +17,14 @@ class EmployeeExtraInfor extends Component {
     }
 
     async componentDidMount() {
-
+        if (this.props.employeeIdFromParent) {
+            let res = await getExtraInforEmployeeById(this.props.employeeIdFromParent);
+            if (res && res.errCode === 0) {
+                this.setState({
+                    extraInfor: res.data
+                })
+            }
+        }
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {

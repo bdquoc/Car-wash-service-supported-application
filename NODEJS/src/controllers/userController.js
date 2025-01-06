@@ -22,6 +22,27 @@ let handleLoging = async (req, res) => {
     })
 }
 
+let handleRegister = async (req, res) => {
+    let email = req.body.email;
+    let password = req.body.password;
+
+    if (!email || !password) {
+        return res.status(500).json({
+            errCode: 1,
+            message: 'Missing inputs parameter!'
+        })
+    }
+
+    let userData = await userService.handleUserRegister(email, password)
+
+
+    return res.status(200).json({
+        errCode: userData.errCode,
+        message: userData.errMessage,
+        user: userData.user ? userData.user : {}
+    })
+}
+
 let handleGetAllUsers = async (req, res) => {
     let id = req.query.id;
 
@@ -64,11 +85,11 @@ let handleEditUser = async (req, res) => {
 }
 
 let getAllCode = async (req, res) => {
-    try{
+    try {
         let data = await userService.getAllCodeService(req.query.type);
         return res.status(200).json(data);
     } catch (e) {
-        console.log('Get all code error: ',e)
+        console.log('Get all code error: ', e)
         return res.status(200).json({
             errCode: -1,
             errMessage: 'Error from server'

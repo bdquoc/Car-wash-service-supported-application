@@ -56,7 +56,7 @@ let getAllEmployees = () => {
 }
 
 let checkRequiredFields = (inputData) => {
-    let arrFields = ['employeeId', 'contentHTML', 'contentMarkdown', 'action',
+    let arrFields = ['id', 'contentHTML', 'contentMarkdown', 'action',
         'selectedPrice', 'selectedPayment', 'selectedProvince', 'nameFacility',
         'addressFacility', 'note', 'specialtyId'
     ]
@@ -113,7 +113,7 @@ let saveDetailInforEmployee = (inputData) => {
 
                 //upsert to Employee_Infor table
                 let employeeInfor = await db.Employee_Infor.findOne({
-                    where: { employeeId: inputData.employeeId },
+                    where: { employeeId: inputData.id },
                     raw: false
                 })
 
