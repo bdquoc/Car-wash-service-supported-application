@@ -16,7 +16,7 @@ import CustomScrollbars from '../components/CustomScrollbars.js';
 import DetailEmployee from './Customer/Employee/DetailEmployee';
 import Employee from '../routes/Employee';
 import VerifyEmail from './Customer/VerifyEmail';
-import DetailSpecialty from './System/Specialty/DetailSpecialty';
+import DetailSpecialty from './Customer/Specialty/DetailSpecialty';
 import Register from './Auth/Register';
 import ForgotPassword from './Auth/ForgotPassword';
 

@@ -192,16 +192,17 @@ class ManageEmployee extends Component {
 
     handleChangeSelect = async (selectedEmployee) => {
         this.setState({ selectedEmployee });
-        let { listPayment, listPrice, listProvince } = this.state;
+        let { listPayment, listPrice, listProvince, listSpecialty } = this.state;
 
         let res = await getDetailInforEmployee(selectedEmployee.value);
         if (res && res.errCode === 0 && res.data && res.data.Markdown) {
             let markdown = res.data.Markdown;
 
             let addressFacility = '', nameFacility = '', note = '',
-                paymentId = '', priceId = '', provinceId = '',
-                selectedPayment = '', selectedPrice = '', selectedProvince = '';
-
+                paymentId = '', priceId = '', provinceId = '', specialtyId = '',
+                selectedPayment = '', selectedPrice = '', selectedProvince = '',
+                selectedSpecialty = ''
+                ;
             if (res.data.Employee_Infor) {
                 addressFacility = res.data.Employee_Infor.addressFacility;
                 nameFacility = res.data.Employee_Infor.nameFacility;
@@ -209,6 +210,7 @@ class ManageEmployee extends Component {
                 paymentId = res.data.Employee_Infor.paymentId;
                 priceId = res.data.Employee_Infor.priceId;
                 provinceId = res.data.Employee_Infor.provinceId;
+                specialtyId = res.data.Employee_Infor.specialtyId;
 
                 selectedPayment = listPayment.find(item => {
                     return item && item.value === paymentId
@@ -218,6 +220,9 @@ class ManageEmployee extends Component {
                 })
                 selectedProvince = listProvince.find(item => {
                     return item && item.value === provinceId
+                })
+                selectedSpecialty = listSpecialty.find(item => {
+                    return item && item.value === specialtyId
                 })
             }
             this.setState({
@@ -231,6 +236,7 @@ class ManageEmployee extends Component {
                 selectedPayment: selectedPayment,
                 selectedPrice: selectedPrice,
                 selectedProvince: selectedProvince,
+                selectedSpecialty: selectedSpecialty,
             })
         } else {
             this.setState({
@@ -241,6 +247,10 @@ class ManageEmployee extends Component {
                 addressFacility: '',
                 nameFacility: '',
                 note: '',
+                selectedPayment: '',
+                selectedPrice: '',
+                selectedProvince: '',
+                selectedSpecialty: '',
             })
         }
         // console.log('check res: ', res)

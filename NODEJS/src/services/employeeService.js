@@ -119,7 +119,7 @@ let saveDetailInforEmployee = (inputData) => {
 
                 if (employeeInfor) {
                     //update
-                    employeeInfor.employeeId = inputData.employeeId;
+                    employeeInfor.employeeId = inputData.id;
                     employeeInfor.priceId = inputData.selectedPrice;
                     employeeInfor.provinceId = inputData.selectedProvince;
                     employeeInfor.paymentId = inputData.selectedPayment;
@@ -133,7 +133,7 @@ let saveDetailInforEmployee = (inputData) => {
                 } else {
                     //create
                     await db.Employee_Infor.create({
-                        employeeId: inputData.employeeId,
+                        employeeId: inputData.id,
                         priceId: inputData.selectedPrice,
                         provinceId: inputData.selectedProvince,
                         paymentId: inputData.selectedPayment,

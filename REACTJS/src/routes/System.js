@@ -5,7 +5,7 @@ import UserManage from '../containers/System/UserManage';
 import UserRedux from '../containers/System/Admin/UserRedux';
 import Header from '../containers/Header/Header';
 import ManageEmployee from '../containers/System/Admin/ManageEmployee';
-import ManageSpecialty from '../containers/System/Specialty/ManageSpecialty';
+import ManageSpecialty from '../containers/Customer/Specialty/ManageSpecialty';
 
 class System extends Component {
     render() {
