@@ -44,10 +44,21 @@ class DetailSpecialty extends Component {
                     }
                 }
 
+                let dataProvince = resProvince.data;
+                if (dataProvince && dataProvince.length > 0) {
+                    dataProvince.unshift({
+                        createAt: null,
+                        keyMap: 'ALL',
+                        type: "PROVINCE",
+                        valueEn: "ALL",
+                        valueVi: "Toàn quốc",
+                    })
+                }
+
                 this.setState({
                     dataDetailSpecialty: res.data,
                     arrEmployeeId: arrEmployeeId,
-                    listProvince: resProvince.data
+                    listProvince: dataProvince ? dataProvince : []
                 })
             }
         }
@@ -59,8 +70,34 @@ class DetailSpecialty extends Component {
         }
     }
 
-    handleOnChangeSelect = (event) => {
-        console.log('check on change', event.target.value)
+    handleOnChangeSelect = async (event) => {
+        if (this.props.match && this.props.match.params && this.props.match.params.id) {
+            let id = this.props.match.params.id;
+            let location = event.target.value;
+
+            let res = await getAllDetailSpecialtyById({
+                id: id,
+                location: location
+            });
+
+            if (res && res.errCode === 0) {
+                let data = res.data;
+                let arrEmployeeId = [];
+                if (data && !_.isEmpty(res.data)) {
+                    let arr = data.employeeSpecialty;
+                    if (arr && arr.length > 0) {
+                        arr.map(item => {
+                            arrEmployeeId.push(item.employeeId)
+                        })
+                    }
+                }
+
+                this.setState({
+                    dataDetailSpecialty: res.data,
+                    arrEmployeeId: arrEmployeeId,
+                })
+            }
+        }
     }
 
     render() {
@@ -99,6 +136,8 @@ class DetailSpecialty extends Component {
                                             <ProfileEmployee
                                                 employeeId={item}
                                                 isShowDescriptionEmployee={true}
+                                                isShowLinkDetail={true}
+                                                isShowPrice={false}
                                             />
                                         </div>
                                     </div>

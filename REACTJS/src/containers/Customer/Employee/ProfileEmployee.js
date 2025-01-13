@@ -7,6 +7,7 @@ import { LANGUAGES } from '../../../utils';
 import NumberFormat from 'react-number-format';
 import _ from 'lodash';
 import moment from 'moment';
+import { Link } from 'react-router-dom';
 
 
 class ProfileEmployee extends Component {
@@ -59,7 +60,7 @@ class ProfileEmployee extends Component {
 
     render() {
         let { dataProfile } = this.state;
-        let { language, isShowDescriptionEmployee, dataTime } = this.props;
+        let { language, isShowDescriptionEmployee, dataTime, isShowPrice, isShowLinkDetail, employeeId } = this.props;
 
         let nameVi = '', nameEn = '';
         if (dataProfile && dataProfile.positionData) {
@@ -97,28 +98,37 @@ class ProfileEmployee extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="price">
-                    <FormattedMessage id="customer.booking-modal.price"></FormattedMessage>
-                    {dataProfile && dataProfile.Employee_Infor && language === LANGUAGES.VI &&
-                        <NumberFormat
-                            className="currency"
-                            value={dataProfile.Employee_Infor.priceTypeData.valueVi}
-                            displayType={'text'}
-                            thousandSeparator={true}
-                            suffix={'VND'}
-                        />
-                    }
+                {isShowLinkDetail === true &&
+                    <div className="view-detail-employee">
+                        <Link to={`/detail-employee/${employeeId}`}>Xem thêm</Link>
+                    </div>
+                }
 
-                    {dataProfile && dataProfile.Employee_Infor && language === LANGUAGES.EN &&
-                        <NumberFormat
-                            className="currency"
-                            value={dataProfile.Employee_Infor.priceTypeData.valueEn}
-                            displayType={'text'}
-                            thousandSeparator={true}
-                            suffix={'$'}
-                        />
-                    }
-                </div>
+                {isShowPrice === true &&
+                    <div className="price">
+                        <FormattedMessage id="customer.booking-modal.price"></FormattedMessage>
+                        {dataProfile && dataProfile.Employee_Infor && language === LANGUAGES.VI &&
+                            <NumberFormat
+                                className="currency"
+                                value={dataProfile.Employee_Infor.priceTypeData.valueVi}
+                                displayType={'text'}
+                                thousandSeparator={true}
+                                suffix={'VND'}
+                            />
+                        }
+
+                        {dataProfile && dataProfile.Employee_Infor && language === LANGUAGES.EN &&
+                            <NumberFormat
+                                className="currency"
+                                value={dataProfile.Employee_Infor.priceTypeData.valueEn}
+                                displayType={'text'}
+                                thousandSeparator={true}
+                                suffix={'$'}
+                            />
+                        }
+                    </div>
+                }
+
             </div>
         );
     }
