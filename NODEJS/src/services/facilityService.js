@@ -1,9 +1,9 @@
 const db = require("../models");
 
-let createSpecialty = (data) => {
+let createFacility = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
-            if (!data.name
+            if (!data.name || !data.address
                 || !data.imageBase64
                 || !data.descriptionHTML
                 || !data.descriptionMarkdown
@@ -13,8 +13,9 @@ let createSpecialty = (data) => {
                     errMessage: 'Missing required parameters',
                 })
             } else {
-                await db.Service.create({
+                await db.Facility.create({
                     name: data.name,
+                    address: data.address,
                     image: data.imageBase64,
                     descriptionHTML: data.descriptionHTML,
                     descriptionMarkdown: data.descriptionMarkdown
@@ -26,15 +27,16 @@ let createSpecialty = (data) => {
                 })
             }
         } catch (e) {
+            console.log(e)
             reject(e);
         }
     })
 }
 
-let getAllSpecialty = () => {
+let getAllFacility = () => {
     return new Promise(async (resolve, reject) => {
         try {
-            let data = await db.Service.findAll({
+            let data = await db.Facility.findAll({
 
             });
             if (data && data.length > 0) {
@@ -54,41 +56,31 @@ let getAllSpecialty = () => {
     })
 }
 
-let getDetailSpecialtyById = (inputId, location) => {
+let getDetailFacilityById = (inputId) => {
     return new Promise(async (resolve, reject) => {
         try {
-            if (!inputId || !location) {
+            if (!inputId) {
                 resolve({
                     errMessage: 'Missing parameters',
                     errCode: 1,
                 })
             }
             else {
-                let data = await db.Service.findOne({
+                let data = await db.Facility.findOne({
                     where: {
                         id: inputId
                     },
-                    attributes: ['descriptionHTML', 'descriptionMarkdown'],
+                    attributes: ['name', 'address', 'descriptionHTML', 'descriptionMarkdown'],
                 })
 
                 if (data) {
-                    let employeeSpecialty = [];
-                    if (location === 'ALL') {
-                        employeeSpecialty = await db.Employee_Infor.findAll({
-                            where: { specialtyId: inputId },
-                            attributes: ['employeeId', 'provinceId'],
-                        })
-                    } else {
-                        employeeSpecialty = await db.Employee_Infor.findAll({
-                            where: {
-                                specialtyId: inputId,
-                                provinceId: location
-                            },
-                            attributes: ['employeeId', 'provinceId'],
-                        })
-                    }
+                    let employeeFacility = [];
 
-                    data.employeeSpecialty = employeeSpecialty;
+                    employeeFacility = await db.Employee_Infor.findAll({
+                        where: { facilityId: inputId },
+                        attributes: ['employeeId', 'provinceId'],
+                    })
+                    data.employeeFacility = employeeFacility;
                 } else data = {}
 
                 resolve({
@@ -103,9 +95,8 @@ let getDetailSpecialtyById = (inputId, location) => {
     })
 }
 
-
 module.exports = {
-    createSpecialty: createSpecialty,
-    getAllSpecialty: getAllSpecialty,
-    getDetailSpecialtyById: getDetailSpecialtyById
+    createFacility: createFacility,
+    getAllFacility: getAllFacility,
+    getDetailFacilityById: getDetailFacilityById
 }

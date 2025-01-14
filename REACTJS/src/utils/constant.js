@@ -8,6 +8,7 @@ export const path = {
     SYSTEM: '/system',
     DETAIL_EMPLOYEE: '/detail-employee/:id',
     DETAIL_SPECIALTY: '/detail-specialty/:id',
+    DETAIL_FACILITY: '/detail-facility/:id',
     VERIFY_EMAIL_BOOKING: '/verify-booking'
 };
 

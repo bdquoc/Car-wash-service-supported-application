@@ -1,48 +1,72 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import './CarWashFacility.scss';
 import { FormattedMessage } from 'react-intl';
 import Slider from "react-slick";
+import { getAllFacility } from "../../../services/userService";
+import { withRouter } from 'react-router';
 
-class Service1 extends Component {
+class CarWashFacility extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            dataFacilities: []
+        }
+    }
+
+    async componentDidMount() {
+        let res = await getAllFacility();
+        if (res && res.errCode === 0) {
+            this.setState({
+                dataFacilities: res.data ? res.data : []
+            })
+        }
+    }
+
+    handleViewDetailFacility = (item) => {
+        if (this.props.history) {
+            this.props.history.push(`/detail-facility/${item.id}`)
+        }
+    }
 
     render() {
+        let { dataFacilities } = this.state;
+
         return (
-            <div className="section-share section-service1">
+            <div className="section-share section-car-wash-facilities">
                 <div className="section-container">
                     <div className="section-header">
-                        <span className="title-section">Cơ sở vật chất</span>
-                        <button className="btn-section">xem thêm</button>
+                        <span className="title-section">
+                            Cơ sở nổi bật
+                        </span>
+                        <button className="btn-section">
+                            <FormattedMessage id="homepage.more-infor" />
+                        </button>
                     </div>
 
                     <div className="section-body">
                         <Slider {...this.props.settings}>
-                            <div className="section-customize">
-                                <div className="bg-image section-service1" />
-                                <div>Bảo dưỡng ô tô 1</div>
-                            </div>
-                            <div className="section-customize">
-                                <div className="bg-image section-service1" />    
-                                <div>Bảo dưỡng ô tô 2</div>
-                            </div>
-                            <div className="section-customize">
-                                <div className="bg-image section-service1" />
-                                <div>Bảo dưỡng ô tô 3</div>
-                            </div>
-                            <div className="section-customize">
-                                <div className="bg-image section-service1" />
-                                <div>Bảo dưỡng ô tô 4</div>
-                            </div>
-                            <div className="section-customize">
-                                <div className="bg-image section-service1" />
-                                <div>Bảo dưỡng ô tô 5</div>
-                            </div>
-                            <div className="section-customize">
-                                <div className="bg-image section-service1" />
-                                <div>Bảo dưỡng ô tô 6</div>
-                            </div>
-                        </Slider> 
+                            {dataFacilities && dataFacilities.length > 0 &&
+                                dataFacilities.map((item, index) => {
+                                    return (
+                                        <div
+                                            className="section-customize facility-child"
+                                            key={index}
+                                            onClick={() => this.handleViewDetailFacility(item)}
+                                        >
+                                            <div
+                                                className="bg-image section-car-wash-facilities"
+                                                style={{ backgroundImage: `url(${item.image})` }}
+                                            />
+                                            <div className="facility-name">{item.name}</div>
+                                        </div>
+                                    )
+                                })
+
+                            }
+                        </Slider>
                     </div>
-                      
                 </div>
             </div>
         );
@@ -61,4 +85,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Service1);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CarWashFacility));

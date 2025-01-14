@@ -100,6 +100,15 @@ class ManageEmployee extends Component {
                 })
             }
 
+            if (type === 'FACILITY') {
+                inputData.map((item, index) => {
+                    let object = {};
+                    object.label = item.name;
+                    object.value = item.id;
+                    result.push(object);
+                })
+            }
+
         }
         return result;
     }
@@ -112,11 +121,12 @@ class ManageEmployee extends Component {
         }
         if (prevProps.language !== this.props.language) {
             let dataSelect = this.buildDataInputSelect(this.props.allEmployees, 'USERS');
-            let { resPayment, resPrice, resProvince, resSpecialty } = this.props.allRequiredEmployeeInfor;
+            let { resPayment, resPrice, resProvince, resSpecialty, resFacility } = this.props.allRequiredEmployeeInfor;
             let dataSelectPrice = this.buildDataInputSelect(resPrice, 'PRICE');
             let dataSelectPayment = this.buildDataInputSelect(resPayment, 'PAYMENT');
             let dataSelectProvince = this.buildDataInputSelect(resProvince, 'PROVINCE');
             let dataSelectSpecialty = this.buildDataInputSelect(resSpecialty, 'SPECIALTY');
+            let dataSelectFacility = this.buildDataInputSelect(resFacility, 'FACILITY');
 
             this.setState({
                 listEmployees: dataSelect,
@@ -124,23 +134,25 @@ class ManageEmployee extends Component {
                 listPayment: dataSelectPayment,
                 listProvince: dataSelectProvince,
                 listSpecialty: dataSelectSpecialty,
+                listFacility: dataSelectFacility,
             })
         }
 
         if (prevProps.allRequiredEmployeeInfor !== this.props.allRequiredEmployeeInfor) {
-            let { resPayment, resPrice, resProvince, resSpecialty } = this.props.allRequiredEmployeeInfor;
+            let { resPayment, resPrice, resProvince, resSpecialty, resFacility } = this.props.allRequiredEmployeeInfor;
             let dataSelectPrice = this.buildDataInputSelect(resPrice, 'PRICE');
             let dataSelectPayment = this.buildDataInputSelect(resPayment, 'PAYMENT');
             let dataSelectProvince = this.buildDataInputSelect(resProvince, 'PROVINCE');
             let dataSelectSpecialty = this.buildDataInputSelect(resSpecialty, 'SPECIALTY');
+            let dataSelectFacility = this.buildDataInputSelect(resFacility, 'FACILITY');
 
 
-            console.log('data new: ', dataSelectPayment, dataSelectPrice, dataSelectProvince)
             this.setState({
                 listPrice: dataSelectPrice,
                 listPayment: dataSelectPayment,
                 listProvince: dataSelectProvince,
-                listSpecialty: dataSelectSpecialty
+                listSpecialty: dataSelectSpecialty,
+                listFacility: dataSelectFacility,
             })
         }
     }
@@ -192,15 +204,15 @@ class ManageEmployee extends Component {
 
     handleChangeSelect = async (selectedEmployee) => {
         this.setState({ selectedEmployee });
-        let { listPayment, listPrice, listProvince, listSpecialty } = this.state;
+        let { listPayment, listPrice, listProvince, listSpecialty, listFacility } = this.state;
 
         let res = await getDetailInforEmployee(selectedEmployee.value);
         if (res && res.errCode === 0 && res.data && res.data.Markdown) {
             let markdown = res.data.Markdown;
 
             let addressFacility = '', nameFacility = '', note = '',
-                paymentId = '', priceId = '', provinceId = '', specialtyId = '',
-                selectedPayment = '', selectedPrice = '', selectedProvince = '',
+                paymentId = '', priceId = '', provinceId = '', specialtyId = '', facilityId = '',
+                selectedPayment = '', selectedPrice = '', selectedProvince = '', selectedFacility = '',
                 selectedSpecialty = ''
                 ;
             if (res.data.Employee_Infor) {
@@ -211,6 +223,7 @@ class ManageEmployee extends Component {
                 priceId = res.data.Employee_Infor.priceId;
                 provinceId = res.data.Employee_Infor.provinceId;
                 specialtyId = res.data.Employee_Infor.specialtyId;
+                facilityId = res.data.Employee_Infor.facilityId;
 
                 selectedPayment = listPayment.find(item => {
                     return item && item.value === paymentId
@@ -223,6 +236,9 @@ class ManageEmployee extends Component {
                 })
                 selectedSpecialty = listSpecialty.find(item => {
                     return item && item.value === specialtyId
+                })
+                selectedFacility = listFacility.find(item => {
+                    return item && item.value === facilityId
                 })
             }
             this.setState({
@@ -237,6 +253,7 @@ class ManageEmployee extends Component {
                 selectedPrice: selectedPrice,
                 selectedProvince: selectedProvince,
                 selectedSpecialty: selectedSpecialty,
+                selectedFacility: selectedFacility,
             })
         } else {
             this.setState({
@@ -251,6 +268,7 @@ class ManageEmployee extends Component {
                 selectedPrice: '',
                 selectedProvince: '',
                 selectedSpecialty: '',
+                selectedFacility: '',
             })
         }
         // console.log('check res: ', res)

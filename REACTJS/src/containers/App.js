@@ -19,6 +19,7 @@ import VerifyEmail from './Customer/VerifyEmail';
 import DetailSpecialty from './Customer/Specialty/DetailSpecialty';
 import Register from './Auth/Register';
 import ForgotPassword from './Auth/ForgotPassword';
+import DetailFacility from './Customer/Facility/DetailFacility';
 
 class App extends Component {
 
@@ -57,6 +58,7 @@ class App extends Component {
                                     <Route path={path.HOMEPAGE} component={HomePage} />
                                     <Route path={path.DETAIL_EMPLOYEE} component={DetailEmployee} />
                                     <Route path={path.DETAIL_SPECIALTY} component={DetailSpecialty} />
+                                    <Route path={path.DETAIL_FACILITY} component={DetailFacility} />
 
                                     <Route path={path.VERIFY_EMAIL_BOOKING} component={VerifyEmail} />
                                 </Switch>
