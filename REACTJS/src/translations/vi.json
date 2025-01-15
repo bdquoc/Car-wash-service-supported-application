@@ -30,7 +30,8 @@
             "manage-tips": "Quản lí tips"
         },
         "employee": {
-            "manage-schedule": "Quản lí lịch làm việc"
+            "manage-schedule": "Quản lí lịch làm việc",
+            "manage-customer": "Quản lí khách hàng đặt lịch bảo dưỡng"
         }
     },
     "manage-user": {

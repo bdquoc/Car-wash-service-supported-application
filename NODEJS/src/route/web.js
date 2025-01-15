@@ -35,6 +35,9 @@ let initWebRoutes = (app) => {
     router.get('/api/get-extra-infor-employee-by-id', employeeController.getExtraInforEmployeeById);
     router.get('/api/get-profile-employee-by-id', employeeController.getProfileEmployeeById);
 
+    router.get('/api/get-list-customer-for-employee', employeeController.getListCustomerForEmployee);
+    router.post('/api/send-remedy', employeeController.sendRemedy);
+
     router.post('/api/customer-book-appointment', customerController.postBookAppointment);
     router.post('/api/verify-book-appointment', customerController.postVerifyBookAppointment);
 

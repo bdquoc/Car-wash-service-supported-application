@@ -124,10 +124,6 @@ class BookingModal extends Component {
         let date = new Date(this.state.birthday).getTime();
         let timeString = this.buildTimeBooking(this.props.dataTime);
         let employeeName = this.buildEmployeeName(this.props.dataTime);
-        console.log('date: ', date);
-        console.log('timeString: ', timeString);
-        console.log('employeeName: ', employeeName);
-        console.log('check state: ', this.state);
 
         let res = await postCustomerBookAppointment({
             fullName: this.state.fullName,
@@ -135,7 +131,8 @@ class BookingModal extends Component {
             email: this.state.email,
             address: this.state.address,
             reason: this.state.reason,
-            date: date,
+            date: this.props.dataTime.date,
+            birthday: date,
             selectedGender: this.state.selectedGender.value,
             employeeId: this.state.employeeId,
             timeType: this.state.timeType,

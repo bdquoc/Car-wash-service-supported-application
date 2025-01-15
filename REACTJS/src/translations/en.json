@@ -30,7 +30,8 @@
             "manage-tips": "Manage tips"
         },
         "employee": {
-            "manage-schedule": "Manage Employee's schedule"
+            "manage-schedule": "Manage Employee's schedule",
+            "manage-customer": "Manage Employee's customer"
         }
     },
     "manage-user": {

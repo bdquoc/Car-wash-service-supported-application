@@ -1,7 +1,7 @@
 export const adminMenu = [
 
     { //quản lí người dùng
-        name: 'menu.admin.manage-user', 
+        name: 'menu.admin.manage-user',
         menus: [
             {
                 name: 'menu.admin.crud', link: '/system/user-manage'
@@ -12,7 +12,7 @@ export const adminMenu = [
             },
 
             {
-                 name: 'menu.admin.manage-employee', link: '/system/manage-employee'
+                name: 'menu.admin.manage-employee', link: '/system/manage-employee'
                 // subMenus: [
                 //     { name: 'menu.system.system-administrator.user-manage', link: '/system/user-manage' },
                 //     { name: 'menu.system.system-administrator.user-redux', link: '/system/user-redux' },
@@ -25,15 +25,15 @@ export const adminMenu = [
 
             { //quản lí lịch làm việc của nhân viên     
                 name: 'menu.employee.manage-schedule', link: '/employee/manage-schedule'
-                
+
             },
 
-            
+
         ]
     },
 
     { //quản lí cơ sở
-        name: 'menu.admin.facility', 
+        name: 'menu.admin.facility',
         menus: [
             {
                 name: 'menu.admin.manage-facility', link: '/system/manage-facility'
@@ -43,7 +43,7 @@ export const adminMenu = [
     },
 
     { //quản lí dịch vụ
-        name: 'menu.admin.specialty', 
+        name: 'menu.admin.specialty',
         menus: [
             {
                 name: 'menu.admin.manage-specialty', link: '/system/manage-specialty'
@@ -53,7 +53,7 @@ export const adminMenu = [
     },
 
     { //quản lí tips
-        name: 'menu.admin.tips', 
+        name: 'menu.admin.tips',
         menus: [
             {
                 name: 'menu.admin.manage-tips', link: '/system/manage-tips'
@@ -65,16 +65,14 @@ export const adminMenu = [
 
 export const employeeMenu = [
     {
-        name: 'menu.admin.manage-user', 
+        name: 'menu.admin.manage-user',
         menus: [
-            { //quản lí lịch làm việc của nhân viên
-                name: 'menu.employee.manage-schedule', 
-                menus: [
-                    {
-                        name: 'menu.employee.manage-schedule', link: '/employee/manage-schedule'
-                    }
-                ]
+            {
+                name: 'menu.employee.manage-schedule', link: '/employee/manage-schedule'
             },
-        ]   
+            {
+                name: 'menu.employee.manage-customer', link: '/employee/manage-customer'
+            },
+        ]
     }
 ];

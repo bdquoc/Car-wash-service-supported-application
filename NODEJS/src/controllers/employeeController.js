@@ -109,6 +109,32 @@ let getProfileEmployeeById = async (req, res) => {
     }
 }
 
+let getListCustomerForEmployee = async (req, res) => {
+    try {
+        let infor = await employeeService.getListCustomerForEmployee(req.query.employeeId, req.query.date);
+        return res.status(200).json(infor);
+    } catch (e) {
+        console.log(e);
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'Error from server'
+        })
+    }
+}
+
+let sendRemedy = async (req, res) => {
+    try {
+        let infor = await employeeService.sendRemedy(req.body);
+        return res.status(200).json(infor);
+    } catch (e) {
+        console.log(e);
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'Error from server'
+        })
+    }
+}
+
 module.exports = {
     getTopEmployeeHome: getTopEmployeeHome,
     getAllEmployees: getAllEmployees,
@@ -117,5 +143,7 @@ module.exports = {
     bulkCreateSchedule: bulkCreateSchedule,
     getScheduleByDate: getScheduleByDate,
     getExtraInforEmployeeById: getExtraInforEmployeeById,
-    getProfileEmployeeById: getProfileEmployeeById
+    getProfileEmployeeById: getProfileEmployeeById,
+    getListCustomerForEmployee: getListCustomerForEmployee,
+    sendRemedy: sendRemedy
 }

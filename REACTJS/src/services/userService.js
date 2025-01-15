@@ -100,6 +100,14 @@ const getAllFacility = () => {
 const getAllDetailFacilityById = (data) => {
     return axios.get(`/api/get-detail-facility-by-id?id=${data.id}`);
 }
+
+const getAllCustomerForEmployee = (data) => {
+    return axios.get(`/api/get-list-customer-for-employee?employeeId=${data.employeeId}&date=${data.date}`);
+}
+
+const postSendRemedy = (data) => {
+    return axios.post('/api/send-remedy', data);
+}
 export {
     handleLoginApi, handleRegisterApi, getAllUsers, createNewUserService,
     deleteUserService, editUserService, getAllCodeService,
@@ -110,5 +118,6 @@ export {
     postCustomerBookAppointment, postVerifyBookAppointment,
     createNewSpecialty, getAllSpecialty, handleForgotPasswordApi,
     getAllDetailSpecialtyById, createNewFacility, getAllFacility,
-    getAllDetailFacilityById
+    getAllDetailFacilityById, getAllCustomerForEmployee,
+    postSendRemedy
 }
