@@ -26,14 +26,14 @@ class HomeHeader extends Component {
                     <div className="home-header-content">
                         <div className="left-content">
                             <i class="fas fa-bars"></i>
-                            <img className="header-logo" src={logo} onClick={() => this.returnToHome()}/>
+                            <img className="header-logo" src={logo} onClick={() => this.returnToHome()} />
                         </div>
                         <div className="center-content">
                             <div className="child-content">
                                 <div><b><FormattedMessage id="homeheader.service" /></b></div>
                             </div>
                             <div className="child-content">
-                                <div><b><FormattedMessage id="homeheader.product" /></b></div>
+                                <div><b><FormattedMessage id="homeheader.employee" /></b></div>
                             </div>
                             <div className="child-content">
                                 <div><b><FormattedMessage id="homeheader.facility" /></b></div>

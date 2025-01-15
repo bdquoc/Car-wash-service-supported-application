@@ -7,42 +7,42 @@ import { FormattedMessage } from 'react-intl';
 function SampleNextArrow(props) {
     const { className, style, onClick } = props;
     return (
-      <div
-        className={className}
-        style={{ ...style, display: "block", background: "red" }}
-        onClick={onClick}
-      />
+        <div
+            className={className}
+            style={{ ...style, display: "block", background: "red" }}
+            onClick={onClick}
+        />
     );
-  }
-  
-  function SamplePrevArrow(props) {
+}
+
+function SamplePrevArrow(props) {
     const { className, style, onClick } = props;
     return (
-      <div
-        className={className}
-        style={{ ...style, display: "block", background: "green" }}
-        onClick={onClick}
-      />
+        <div
+            className={className}
+            style={{ ...style, display: "block", background: "green" }}
+            onClick={onClick}
+        />
     );
-  }
+}
 
 class About extends Component {
-    
+
     render() {
 
         return (
             <div className="section-share section-about">
                 <div className='section-about-header'>
-                    Về tài liệu tham khảo
+                    Về thông tin/tips bảo dưỡng xe
                 </div>
                 <div className='section-about-content'>
                     <div className='content-left'>
-                        <iframe width="80%" height="400" 
-                        src="https://www.youtube.com/embed/ONnlXF4mpIg?list=PLncHg6Kn2JT4C0enPGQPK7ZIlEoZ1ZvRy" title="#0 GIỚI THIỆU KHÓA HỌC REACT - DEMO SẢN PHẨM ĐẠT ĐƯỢC KHI KẾT THÚC KHÓA HỌC | React.JS Siêu Căn Bản" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        <iframe width="80%" height="400"
+                            src="https://www.youtube.com/embed/ONnlXF4mpIg?list=PLncHg6Kn2JT4C0enPGQPK7ZIlEoZ1ZvRy" title="#0 GIỚI THIỆU KHÓA HỌC REACT - DEMO SẢN PHẨM ĐẠT ĐƯỢC KHI KẾT THÚC KHÓA HỌC | React.JS Siêu Căn Bản" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                     </div>
                     <div className='content-right'>
                         <p>
-                            Tài liệu tham khảo kiến thức về React 
+                            Tài liệu tham khảo kiến thức bảo dưỡng xe
                         </p>
                     </div>
                 </div>
@@ -61,7 +61,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        
+
     };
 };
 
