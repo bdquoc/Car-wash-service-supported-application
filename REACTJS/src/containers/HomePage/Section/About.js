@@ -44,6 +44,11 @@ class About extends Component {
                         <p>
                             Video hướng dẫn cách bảo dưỡng xe ô tô của bạn tại nhà
                         </p>
+                        <p>
+                            Một số tips bảo dưỡng xe ô tô cần thiết mà bạn cần biết 
+                            <a target='_blank' href="https://toyotasure.vn/quy-trinh-bao-duong-xe-o-to-dung-cach-an-toan/"> Tại Đây 
+                            </a>
+                        </p>
                     </div>
                 </div>
             </div>
