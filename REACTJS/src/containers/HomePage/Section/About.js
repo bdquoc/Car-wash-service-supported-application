@@ -38,11 +38,11 @@ class About extends Component {
                 <div className='section-about-content'>
                     <div className='content-left'>
                         <iframe width="80%" height="400"
-                            src="https://www.youtube.com/embed/ONnlXF4mpIg?list=PLncHg6Kn2JT4C0enPGQPK7ZIlEoZ1ZvRy" title="#0 GIỚI THIỆU KHÓA HỌC REACT - DEMO SẢN PHẨM ĐẠT ĐƯỢC KHI KẾT THÚC KHÓA HỌC | React.JS Siêu Căn Bản" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            src="https://www.youtube.com/embed/4ZWm3ZNX6XA" title="Hướng dẫn tự kiểm tra &amp; bảo dưỡng nhỏ xe ô tô cũ tại nhà, ai cũng làm được" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                     </div>
                     <div className='content-right'>
                         <p>
-                            Tài liệu tham khảo kiến thức bảo dưỡng xe
+                            Video hướng dẫn cách bảo dưỡng xe ô tô của bạn tại nhà
                         </p>
                     </div>
                 </div>
