@@ -66,7 +66,7 @@ class DetailFacility extends Component {
                         {dataDetailFacility && !_.isEmpty(dataDetailFacility)
                             &&
                             <>
-                                <div>{dataDetailFacility.name}</div>
+                                <h5><b>{dataDetailFacility.name}</b></h5>
                                 <div dangerouslySetInnerHTML={{ __html: dataDetailFacility.descriptionHTML }}>
                                 </div>
                             </>
