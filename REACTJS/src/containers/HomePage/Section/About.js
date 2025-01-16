@@ -45,8 +45,18 @@ class About extends Component {
                             Video hướng dẫn cách bảo dưỡng xe ô tô của bạn tại nhà
                         </p>
                         <p>
-                            Một số tips bảo dưỡng xe ô tô cần thiết mà bạn cần biết 
+                            Chi tiết quy trình bảo dưỡng xe ô tô đúng cách, đảm bảo an toàn 
                             <a target='_blank' href="https://toyotasure.vn/quy-trinh-bao-duong-xe-o-to-dung-cach-an-toan/"> Tại Đây 
+                            </a>
+                        </p>
+                        <p>
+                            Các bước rửa ô tô tại nhà đúng cách 
+                            <a target='_blank' href="https://thanhnien.vn/cac-buoc-rua-o-to-tai-nha-dung-cach-tranh-anh-huong-lop-son-xe-1851267517.htm"> Tại Đây 
+                            </a>
+                        </p>
+                        <p>
+                        Cách kiểm tra dầu nhớt máy ô tô  
+                            <a target='_blank' href="https://tanhoancauvoxe.vn/cach-kiem-tra-dau-nhot-may-o-to/"> Tại Đây 
                             </a>
                         </p>
                     </div>
