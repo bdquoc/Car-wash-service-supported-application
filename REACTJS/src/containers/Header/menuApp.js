@@ -52,15 +52,6 @@ export const adminMenu = [
         ]
     },
 
-    { //quản lí tips
-        name: 'menu.admin.tips',
-        menus: [
-            {
-                name: 'menu.admin.manage-tips', link: '/system/manage-tips'
-            },
-
-        ]
-    },
 ];
 
 export const employeeMenu = [
