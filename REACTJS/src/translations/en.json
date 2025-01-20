@@ -25,6 +25,7 @@
             "facility": "Facilities",
             "manage-facility": "Manage cơ sở",
             "manage-detail-facility": "Manage thông tin cơ sở",
+            "manage-detail-specialty": "Manage thông tin dịch vụ",
             "specialty": "Services",
             "manage-specialty": "Manage Service",
             "tips": "Tips",
@@ -112,6 +113,13 @@
             "name": "Facility's name",
             "address": "Facility's address",
             "image": "Facility's image",
+            "save": "Save infor"
+        },
+        "manage-specialty": {
+            "title": "Update info specialty",
+            "select-specialty": "Select specialty",
+            "name": "Specialty's name",
+            "image": "Specialty's image",
             "save": "Save infor"
         }
     }

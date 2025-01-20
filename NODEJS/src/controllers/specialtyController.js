@@ -39,8 +39,25 @@ let getDetailSpecialtyById = async (req, res) => {
     }
 }
 
+let postInfoSpecialty = async (req, res) => {
+    try {
+        let infor = req.body;
+        console.log('Received data:', infor);
+        let response = await specialtyService.saveDetailInforSpecialty(infor);
+        return res.status(200).json(response);
+    } catch (e) {
+        console.log(e);
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'Error from server',
+            errorDetail: e.message
+        })
+    }
+}
+
 module.exports = {
     createSpecialty: createSpecialty,
     getAllSpecialty: getAllSpecialty,
-    getDetailSpecialtyById: getDetailSpecialtyById
+    getDetailSpecialtyById: getDetailSpecialtyById,
+    postInfoSpecialty: postInfoSpecialty
 }

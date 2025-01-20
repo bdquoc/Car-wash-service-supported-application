@@ -9,6 +9,7 @@ const initialState = {
     topEmployees: [],
     allEmployees: [],
     allFacilities: [],
+    allSpecialties: [],
     allScheduleTime: [],
     allRequiredEmployeeInfor: [],
 }
@@ -90,6 +91,17 @@ const adminReducer = (state = initialState, action) => {
                 ...state
             }
         case actionTypes.FETCH_ALL_FACILITY_FAILED:
+            state.allFacilities = [];
+            return {
+                ...state
+            }
+
+        case actionTypes.FETCH_ALL_SPECIALTY_SUCCESS:
+            state.allSpecialties = action.dataSp;
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_ALL_SPECIALTY_FAILED:
             state.allFacilities = [];
             return {
                 ...state

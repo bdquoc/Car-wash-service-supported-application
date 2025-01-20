@@ -103,9 +103,53 @@ let getDetailSpecialtyById = (inputId, location) => {
     })
 }
 
+let saveDetailInforSpecialty = (inputData) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!inputData) {
+                resolve({
+                    errCode: 1,
+                    errMessage: `Missing required parameters!`
+                })
+            } else {
+
+                let specialty = await db.Service.findOne({
+                    where: { id: inputData.id },
+                    raw: false,
+                });
+
+                if (specialty) {
+                    // Cập nhật thông tin Facility
+                    specialty.name = inputData.name;
+                    specialty.image = inputData.image;
+                    specialty.descriptionHTML = inputData.descriptionHTML;
+                    specialty.descriptionMarkdown = inputData.descriptionMarkdown;
+                    await specialty.save();
+                } else {
+                    // Nếu không tồn tại, tạo mới bản ghi Facility
+                    await db.Service.create({
+                        id: inputData.id,
+                        name: inputData.name,
+                        image: inputData.image,
+                        descriptionHTML: inputData.descriptionHTML,
+                        descriptionMarkdown: inputData.descriptionMarkdown
+                    });
+                }
+                resolve({
+                    errCode: 0,
+                    errMessage: 'Save detail infor specialty success'
+                })
+            }
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+
 
 module.exports = {
     createSpecialty: createSpecialty,
     getAllSpecialty: getAllSpecialty,
-    getDetailSpecialtyById: getDetailSpecialtyById
+    getDetailSpecialtyById: getDetailSpecialtyById,
+    saveDetailInforSpecialty: saveDetailInforSpecialty
 }

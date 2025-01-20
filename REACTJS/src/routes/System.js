@@ -8,6 +8,7 @@ import ManageEmployee from '../containers/System/Admin/ManageEmployee';
 import ManageSpecialty from '../containers/Customer/Specialty/ManageSpecialty';
 import ManageFacility from '../containers/System/Facility/ManageFacility';
 import ManageDetailFacility from '../containers/System/Admin/ManageDetailFacility';
+import ManageDetailSpecialty from '../containers/System/Admin/ManageDetailSpecialty';
 
 class System extends Component {
     render() {
@@ -25,6 +26,7 @@ class System extends Component {
                             <Route path="/system/manage-specialty" component={ManageSpecialty} />
                             <Route path="/system/manage-facility" component={ManageFacility} />
                             <Route path="/system/manage-detail-facility" component={ManageDetailFacility} />
+                            <Route path="/system/manage-detail-specialty" component={ManageDetailSpecialty} />
                             <Route component={() => { return (<Redirect to={systemMenuPath} />) }} />
                         </Switch>
                     </div>

@@ -115,6 +115,8 @@ let saveDetailInforFacility = (inputData) => {
                     facility.name = inputData.name;
                     facility.address = inputData.address;
                     facility.image = inputData.image;
+                    facility.descriptionHTML = inputData.descriptionHTML;
+                    facility.descriptionMarkdown = inputData.descriptionMarkdown;
                     await facility.save();
                 } else {
                     // Nếu không tồn tại, tạo mới bản ghi Facility
@@ -123,6 +125,8 @@ let saveDetailInforFacility = (inputData) => {
                         name: inputData.name,
                         address: inputData.address,
                         image: inputData.image,
+                        descriptionHTML: inputData.descriptionHTML,
+                        descriptionMarkdown: inputData.descriptionMarkdown
                     });
                 }
                 resolve({

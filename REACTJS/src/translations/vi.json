@@ -25,6 +25,7 @@
             "facility": "Cơ sở",
             "manage-facility": "Quản lí cơ sở",
             "manage-detail-facility": "Manage thông tin cơ sở",
+            "manage-detail-specialty": "Manage thông tin dịch vụ",
             "specialty": "Dịch vụ",
             "manage-specialty": "Quản lí dịch vụ",
             "tips": "Tips",
@@ -112,6 +113,13 @@
             "name": "Tên cơ sở",
             "address": "Địa chỉ",
             "image": "Ảnh cơ sở",
+            "save": "Lưu thông tin"
+        },
+        "manage-specialty": {
+            "title": "Chỉnh sửa thông tin dịch vụ",
+            "select-specialty": "Chọn dịch vụ",
+            "name": "Tên dịch vụ",
+            "image": "Ảnh dịch vụ",
             "save": "Lưu thông tin"
         }
     }

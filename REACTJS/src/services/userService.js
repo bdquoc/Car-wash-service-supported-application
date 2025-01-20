@@ -89,6 +89,10 @@ const getAllDetailSpecialtyById = (data) => {
     return axios.get(`/api/get-detail-specialty-by-id?id=${data.id}&location=${data.location}`);
 }
 
+const saveDetailSpecialtyService = (inputData) => {
+    return axios.post('/api/save-infor-specialty', inputData);
+}
+
 const createNewFacility = (data) => {
     return axios.post('/api/create-new-facility', data);
 }
@@ -123,5 +127,5 @@ export {
     createNewSpecialty, getAllSpecialty, handleForgotPasswordApi,
     getAllDetailSpecialtyById, createNewFacility, getAllFacility,
     getAllDetailFacilityById, getAllCustomerForEmployee,
-    postSendRemedy, saveDetailFacilityService
+    postSendRemedy, saveDetailFacilityService, saveDetailSpecialtyService
 }

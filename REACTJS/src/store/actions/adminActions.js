@@ -3,7 +3,8 @@ import {
     getAllCodeService, createNewUserService, getAllUsers,
     deleteUserService, editUserService, getTopEmployeeHomeService,
     getAllEmployees, saveDetailEmployeeService,
-    getAllSpecialty, getAllFacility, saveDetailFacilityService
+    getAllSpecialty, getAllFacility, saveDetailFacilityService,
+    saveDetailSpecialtyService
 } from "../../services/userService";
 import { toast } from 'react-toastify';
 
@@ -313,6 +314,57 @@ export const saveDetailFacility = (data) => {
             console.log('saveDetailFacility error', e);
             dispatch({
                 type: actionTypes.SAVE_DETAIL_FACILITY_FAILED
+            });
+
+        }
+    }
+}
+
+export const fetchAllSpecialty = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getAllSpecialty();
+            if (res && res.errCode === 0) {
+                dispatch({
+                    type: actionTypes.FETCH_ALL_SPECIALTY_SUCCESS,
+                    dataSp: res.data
+                });
+            } else {
+                dispatch({
+                    type: actionTypes.FETCH_ALL_SPECIALTY_FAILED
+                });
+            }
+        } catch (e) {
+            console.log('fetchAllFacility error', e);
+            dispatch({
+                type: actionTypes.FETCH_ALL_SPECIALTY_FAILED
+            });
+
+        }
+    }
+}
+
+export const saveDetailSpecialty = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await saveDetailSpecialtyService(data);
+            if (res && res.errCode === 0) {
+                toast.success('Save detail facility succeeded');
+                dispatch({
+                    type: actionTypes.SAVE_DETAIL_SPECIALTY_SUCCESS
+                });
+            } else {
+                console.log('saveDetailFacility error', res);
+                toast.error('Save detail facility failed');
+                dispatch({
+                    type: actionTypes.SAVE_DETAIL_SPECIALTY_FAILED
+                });
+            }
+        } catch (e) {
+            toast.error('Save detail facility failed');
+            console.log('saveDetailFacility error', e);
+            dispatch({
+                type: actionTypes.SAVE_DETAIL_SPECIALTY_FAILED
             });
 
         }
