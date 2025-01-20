@@ -65,10 +65,10 @@ class HomeHeader extends Component {
                                     <div className="icon-child"><i className="fas fa-car"></i></div>
                                     <div className="text-child"><FormattedMessage id="banner.detail"></FormattedMessage></div>
                                 </div>
-                                <div className="option-child">
+                                {/* <div className="option-child">
                                     <div className="icon-child"><i className="fas fa-cart-plus"></i></div>
                                     <div className="text-child"><FormattedMessage id="banner.product"></FormattedMessage></div>
-                                </div>
+                                </div> */}
                                 <div className="option-child">
                                     <div className="icon-child"><i className="fas fa-cogs"></i></div>
                                     <div className="text-child"><FormattedMessage id="banner.brake"></FormattedMessage></div>

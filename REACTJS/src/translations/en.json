@@ -24,6 +24,7 @@
             "crud-redux": "CRUD Redux",
             "facility": "Facilities",
             "manage-facility": "Manage cơ sở",
+            "manage-detail-facility": "Manage thông tin cơ sở",
             "specialty": "Services",
             "manage-specialty": "Manage Service",
             "tips": "Tips",
@@ -104,6 +105,14 @@
             "note": "Note",
             "specialty": "Specialty",
             "select-facility": "Facility"
+        },
+        "manage-facility": {
+            "title": "Update info facility",
+            "select-facility": "Select facility",
+            "name": "Facility's name",
+            "address": "Facility's address",
+            "image": "Facility's image",
+            "save": "Save infor"
         }
     }
 }

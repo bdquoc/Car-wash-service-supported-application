@@ -104,20 +104,20 @@ class Login extends Component {
                         <div className="col-12">
                             <button class="btn-login" onClick={() => { this.handleLogin() }}>Login</button>
                         </div>
-                        <div className="col-12">
+                        {/* <div className="col-12">
                             <span
                                 className="forgot-password"
                                 onClick={() => this.props.navigate('/forgot-password')}>
                                 Forgot your password
                             </span>
-                        </div>
-                        <div className="col-12">
+                        </div> */}
+                        {/* <div className="col-12">
                             <span
                                 className="sign-up"
                                 onClick={() => this.props.navigate('/register')}>
                                 Or Sign up
                             </span>
-                        </div>
+                        </div> */}
                         <div className="col-12 text-center mt-3">
                             <span className="text-other-login">Or login with:</span>
                         </div>

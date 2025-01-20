@@ -38,6 +38,9 @@ export const adminMenu = [
             {
                 name: 'menu.admin.manage-facility', link: '/system/manage-facility'
             },
+            {
+                name: 'menu.admin.manage-detail-facility', link: '/system/manage-detail-facility'
+            },
 
         ]
     },

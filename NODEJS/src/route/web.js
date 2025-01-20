@@ -48,6 +48,7 @@ let initWebRoutes = (app) => {
     router.post('/api/create-new-facility', facilityController.createFacility);
     router.get('/api/get-facility', facilityController.getAllFacility);
     router.get('/api/get-detail-facility-by-id', facilityController.getDetailFacilityById);
+    router.post('/api/save-infor-facility', facilityController.postInfoFacility);
     return app.use("/", router);
 }
 

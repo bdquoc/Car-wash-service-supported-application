@@ -3,7 +3,7 @@ import {
     getAllCodeService, createNewUserService, getAllUsers,
     deleteUserService, editUserService, getTopEmployeeHomeService,
     getAllEmployees, saveDetailEmployeeService,
-    getAllSpecialty, getAllFacility
+    getAllSpecialty, getAllFacility, saveDetailFacilityService
 } from "../../services/userService";
 import { toast } from 'react-toastify';
 
@@ -262,6 +262,57 @@ export const saveDetailEmployee = (data) => {
             console.log('saveDetailEmployee error', e);
             dispatch({
                 type: actionTypes.SAVE_DETAIL_EMPLOYEE_FAILED
+            });
+
+        }
+    }
+}
+
+export const fetchAllFacility = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getAllFacility();
+            if (res && res.errCode === 0) {
+                dispatch({
+                    type: actionTypes.FETCH_ALL_FACILITY_SUCCESS,
+                    dataFa: res.data
+                });
+            } else {
+                dispatch({
+                    type: actionTypes.FETCH_ALL_FACILITY_FAILED
+                });
+            }
+        } catch (e) {
+            console.log('fetchAllFacility error', e);
+            dispatch({
+                type: actionTypes.FETCH_ALL_FACILITY_FAILED
+            });
+
+        }
+    }
+}
+
+export const saveDetailFacility = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await saveDetailFacilityService(data);
+            if (res && res.errCode === 0) {
+                toast.success('Save detail facility succeeded');
+                dispatch({
+                    type: actionTypes.SAVE_DETAIL_FACILITY_SUCCESS
+                });
+            } else {
+                console.log('saveDetailFacility error', res);
+                toast.error('Save detail facility failed');
+                dispatch({
+                    type: actionTypes.SAVE_DETAIL_FACILITY_FAILED
+                });
+            }
+        } catch (e) {
+            toast.error('Save detail facility failed');
+            console.log('saveDetailFacility error', e);
+            dispatch({
+                type: actionTypes.SAVE_DETAIL_FACILITY_FAILED
             });
 
         }

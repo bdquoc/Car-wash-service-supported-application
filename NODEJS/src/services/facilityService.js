@@ -95,8 +95,50 @@ let getDetailFacilityById = (inputId) => {
     })
 }
 
+let saveDetailInforFacility = (inputData) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!inputData) {
+                resolve({
+                    errCode: 1,
+                    errMessage: `Missing required parameters!`
+                })
+            } else {
+
+                let facility = await db.Facility.findOne({
+                    where: { id: inputData.id },
+                    raw: false,
+                });
+
+                if (facility) {
+                    // Cập nhật thông tin Facility
+                    facility.name = inputData.name;
+                    facility.address = inputData.address;
+                    facility.image = inputData.image;
+                    await facility.save();
+                } else {
+                    // Nếu không tồn tại, tạo mới bản ghi Facility
+                    await db.Facility.create({
+                        id: inputData.id,
+                        name: inputData.name,
+                        address: inputData.address,
+                        image: inputData.image,
+                    });
+                }
+                resolve({
+                    errCode: 0,
+                    errMessage: 'Save detail infor facility success'
+                })
+            }
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+
 module.exports = {
     createFacility: createFacility,
     getAllFacility: getAllFacility,
-    getDetailFacilityById: getDetailFacilityById
+    getDetailFacilityById: getDetailFacilityById,
+    saveDetailInforFacility: saveDetailInforFacility
 }

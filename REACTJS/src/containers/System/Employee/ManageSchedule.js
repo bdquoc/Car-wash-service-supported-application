@@ -109,6 +109,10 @@ class ManageSchedule extends Component {
         if (rangeTime && rangeTime.length > 0) {
             let selectedTime = rangeTime.filter(item => item.isSelected === true);
             if (selectedTime && selectedTime.length > 0) {
+                if (selectedTime.length > 6) {
+                    toast.error('Cannot save more than 6 schedules!');
+                    return;
+                }
                 selectedTime.map((schedule, index) => {
                     let object = {};
                     object.employeeId = selectedEmployee.value;

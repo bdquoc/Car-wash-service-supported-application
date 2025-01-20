@@ -129,7 +129,7 @@ class UserRedux extends Component {
 
         if (action === CRUD_ACTIONS.EDIT) {
             this.props.editAUserRedux({
-                id: this.state.id,
+                id: this.state.userEditId,
                 email: this.state.email,
                 password: this.state.password,
                 firstName: this.state.firstName,
@@ -193,6 +193,8 @@ class UserRedux extends Component {
         let isGetGenders = this.props.isLoadingGender;
 
         let { email, password, firstName, lastName, phoneNumber, address, gender, position, role, avatar } = this.state;
+
+        console.log('check state', this.state)
 
         return (
             <div className='user-redux-container'>

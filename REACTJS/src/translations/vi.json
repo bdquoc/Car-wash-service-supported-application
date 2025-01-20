@@ -24,6 +24,7 @@
             "crud-redux": "CRUD Redux",
             "facility": "Cơ sở",
             "manage-facility": "Quản lí cơ sở",
+            "manage-detail-facility": "Manage thông tin cơ sở",
             "specialty": "Dịch vụ",
             "manage-specialty": "Quản lí dịch vụ",
             "tips": "Tips",
@@ -104,6 +105,14 @@
             "note": "Ghi chú",
             "specialty": "Chọn chuyên môn",
             "select-facility": "Chọn cơ sở"
+        },
+        "manage-facility": {
+            "title": "Chỉnh sửa thông tin facility",
+            "select-facility": "Chọn cơ sở",
+            "name": "Tên cơ sở",
+            "address": "Địa chỉ",
+            "image": "Ảnh cơ sở",
+            "save": "Lưu thông tin"
         }
     }
 }

@@ -97,6 +97,10 @@ const getAllFacility = () => {
     return axios.get(`/api/get-facility`);
 }
 
+const saveDetailFacilityService = (inputData) => {
+    return axios.post('/api/save-infor-facility', inputData);
+}
+
 const getAllDetailFacilityById = (data) => {
     return axios.get(`/api/get-detail-facility-by-id?id=${data.id}`);
 }
@@ -119,5 +123,5 @@ export {
     createNewSpecialty, getAllSpecialty, handleForgotPasswordApi,
     getAllDetailSpecialtyById, createNewFacility, getAllFacility,
     getAllDetailFacilityById, getAllCustomerForEmployee,
-    postSendRemedy
+    postSendRemedy, saveDetailFacilityService
 }

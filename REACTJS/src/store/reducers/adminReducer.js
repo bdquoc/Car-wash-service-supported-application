@@ -8,6 +8,7 @@ const initialState = {
     users: [],
     topEmployees: [],
     allEmployees: [],
+    allFacilities: [],
     allScheduleTime: [],
     allRequiredEmployeeInfor: [],
 }
@@ -79,6 +80,17 @@ const adminReducer = (state = initialState, action) => {
             }
         case actionTypes.FETCH_ALL_EMPLOYEES_FAILED:
             state.allEmployees = [];
+            return {
+                ...state
+            }
+
+        case actionTypes.FETCH_ALL_FACILITY_SUCCESS:
+            state.allFacilities = action.dataFa;
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_ALL_FACILITY_FAILED:
+            state.allFacilities = [];
             return {
                 ...state
             }
